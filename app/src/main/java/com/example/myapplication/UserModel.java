@@ -10,7 +10,7 @@ public class UserModel {
     private int height;
     private int weight;
     private String goal;
-    private int days;
+    private String days;
 
     // toString method
     @Override
@@ -28,7 +28,7 @@ public class UserModel {
     }
 
     // Constructor
-    public UserModel(int id, String name, String gender, int age, int height, int weight, String goal, int days) {
+    public UserModel(int id, String name, String gender, int age, int height, int weight, String goal, String days) {
         this.id = id;
         this.name = name;
         this.gender = gender;
@@ -96,11 +96,11 @@ public class UserModel {
         this.goal = goal;
     }
 
-    public int getDays() {
+    public String getDays() {
         return days;
     }
 
-    public void setDays(int days) {
+    public void setDays(String days) {
         this.days = days;
     }
 

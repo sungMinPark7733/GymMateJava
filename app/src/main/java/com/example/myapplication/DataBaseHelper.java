@@ -29,7 +29,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                     COLUMN_USER_HEIGHT + " INT, " +
                     COLUMN_USER_WEIGHT + " INT, " +
                     COLUMN_USER_GOAL + " TEXT, " +
-                    COLUMN_USER_DAYS + " INT)";
+                    COLUMN_USER_DAYS + " TEXT)";
     public DataBaseHelper(@Nullable Context context) {
         super(context, "user.db", null, 1);
     }

@@ -52,13 +52,9 @@ public class Confirmation extends AppCompatActivity {
         if (selectedGoals != null) {
             tv_goalcheck.setText("Your Goal: " + selectedGoals);
         }
-        String days = getIntent().getStringExtra("days");
+        String days = getIntent().getStringExtra("daysChecked");
         if (days != null) {
-            if (days == "1") {
-                tv_dayscheck.setText("Workout days: " + days + " days");
-            } else {
-                tv_dayscheck.setText("Workout days: " + days + " days");
-            }
+                tv_dayscheck.setText("Workout days: " + days);
         }
 
         // button listenersmy
@@ -73,7 +69,7 @@ public class Confirmation extends AppCompatActivity {
             intent.putExtra("height", height);
             intent.putExtra("weight", weight);
             intent.putExtra("selectedGoals", selectedGoals);
-            intent.putExtra("days", days); // Include the selected days
+            intent.putExtra("daysChecked", days);
 
             // Initiate the transition to the Confirmation activity
             startActivity(intent);
@@ -89,7 +85,7 @@ public class Confirmation extends AppCompatActivity {
                         Integer.parseInt(height),
                         Integer.parseInt(weight),
                         selectedGoals,
-                        Integer.parseInt(days));
+                        days);
                 Toast.makeText(Confirmation.this, userModel.toString(), Toast.LENGTH_LONG).show();
                 DataBaseHelper dataBaseHelper = new DataBaseHelper(Confirmation.this);
 

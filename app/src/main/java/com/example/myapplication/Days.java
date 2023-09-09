@@ -3,31 +3,48 @@ package com.example.myapplication;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.SeekBar;
-import android.widget.TextView;
+import android.widget.CheckBox;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.Arrays;
+
 public class Days extends AppCompatActivity {
 
+    CheckBox cb_monday, cb_tuesday, cb_wednesday, cb_thursday, cb_friday, cb_saturday, cb_sunday;
+    boolean[] daysChecked;
     Button btn_previous, btn_next;
-    SeekBar sb_days;
-    TextView tv_days;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_days);
-
-        sb_days = findViewById(R.id.sb_days);
-        tv_days = findViewById(R.id.tv_days);
+        cb_monday = findViewById(R.id.cb_monday);
+        cb_tuesday = findViewById(R.id.cb_tuesday);
+        cb_wednesday = findViewById(R.id.cb_wednesday);
+        cb_thursday = findViewById(R.id.cb_thursday);
+        cb_friday = findViewById(R.id.cb_friday);
+        cb_saturday = findViewById(R.id.cb_saturday);
+        cb_sunday = findViewById(R.id.cb_sunday);
         btn_previous = findViewById(R.id.btn_previous);
         btn_next = findViewById(R.id.btn_next);
 
-        // button listeners
+        // Initialize the boolean array for days
+        daysChecked = new boolean[7];
+
+        // Set up CheckBox listeners to update the boolean array
+        cb_monday.setOnCheckedChangeListener((buttonView, isChecked) -> daysChecked[0] = isChecked);
+        cb_tuesday.setOnCheckedChangeListener((buttonView, isChecked) -> daysChecked[1] = isChecked);
+        cb_wednesday.setOnCheckedChangeListener((buttonView, isChecked) -> daysChecked[2] = isChecked);
+        cb_thursday.setOnCheckedChangeListener((buttonView, isChecked) -> daysChecked[3] = isChecked);
+        cb_friday.setOnCheckedChangeListener((buttonView, isChecked) -> daysChecked[4] = isChecked);
+        cb_saturday.setOnCheckedChangeListener((buttonView, isChecked) -> daysChecked[5] = isChecked);
+        cb_sunday.setOnCheckedChangeListener((buttonView, isChecked) -> daysChecked[6] = isChecked);
+
+
         btn_previous.setOnClickListener(view -> {
             // Get the selected number of days
-            int enteredDays = sb_days.getProgress();
+            String enteredDays = Arrays.toString(daysChecked);
 
             // Retrieve user information from previous intent
             String name = getIntent().getStringExtra("name");
@@ -40,22 +57,22 @@ public class Days extends AppCompatActivity {
             // Prepare to navigate to the Confirmation activity
             Intent intent = new Intent(Days.this, Goal.class);
 
-            // Pass user information to the next activity
+            // Pass user information and selected days to the next activity
             intent.putExtra("name", name);
             intent.putExtra("gender", gender);
             intent.putExtra("age", age);
             intent.putExtra("height", height);
             intent.putExtra("weight", weight);
             intent.putExtra("selectedGoals", selectedGoals);
-            intent.putExtra("days", String.valueOf(enteredDays)); // Include the selected days
+            intent.putExtra("daysChecked", enteredDays); // Include the selected days
 
-            // Initiate the transition to the Confirmation activity
+            // Initiate the transition to the Goal activity
             startActivity(intent);
         });
 
         btn_next.setOnClickListener(view -> {
             // Get the selected number of days
-            int enteredDays = sb_days.getProgress();
+            String enteredDays = Arrays.toString(daysChecked);
 
             // Retrieve user information from previous intent
             String name = getIntent().getStringExtra("name");
@@ -68,41 +85,20 @@ public class Days extends AppCompatActivity {
             // Prepare to navigate to the Confirmation activity
             Intent intent = new Intent(Days.this, Confirmation.class);
 
-            // Pass user information to the next activity
+            // Pass user information and selected days to the next activity
             intent.putExtra("name", name);
             intent.putExtra("gender", gender);
             intent.putExtra("age", age);
             intent.putExtra("height", height);
             intent.putExtra("weight", weight);
             intent.putExtra("selectedGoals", selectedGoals);
-            intent.putExtra("days", String.valueOf(enteredDays)); // Include the selected days
+            intent.putExtra("daysChecked", enteredDays); // Include the selected days
 
             // Initiate the transition to the Confirmation activity
             startActivity(intent);
         });
 
-        // change the output depends on the input
-        sb_days.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                if(i < 2)
-                {
-                    tv_days.setText(i + " Day");
-                }
-                else{
-                    tv_days.setText(i + " Days");
-                }
-            }
 
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
 
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
     }
 }

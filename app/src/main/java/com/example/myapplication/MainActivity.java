@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
         // button listener
         btn_continue.setOnClickListener(view -> {
-            Intent intent = new Intent(MainActivity.this, Calories.class); // Move from MainActivity class to Name class
+            Intent intent = new Intent(MainActivity.this, Name.class); // Move from MainActivity class to Name class
             startActivity(intent);
         });
     }
