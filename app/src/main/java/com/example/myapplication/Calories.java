@@ -27,13 +27,13 @@ import java.util.List;
 
 public class Calories extends AppCompatActivity {
 
-    private Button btn_addFood, btn_addWeight, btn_cancel1, btn_cancel2, btn_add1, btn_clear, btn_delete;
-    private TextView tv_calDisplay, selectedValueTextView;
+    private Button btn_addFood, btn_addWeight, btn_cancel1, btn_cancel2, btn_add1, btn_clear, btn_delete, btn_confirm1;
+    private TextView tv_calDisplay, selectedValueTextView, tv_protein, tv_carbs, tv_fat, tv_weight;
     private PieChart piechart;
-    private TextView tv_protein, tv_carbs, tv_fat;
     private CardView cv_weightpanel, cv_foodpanel;
     private NumberPicker numberPicker;
     private ListView lv_foodList, lv_latestList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,10 +47,12 @@ public class Calories extends AppCompatActivity {
         btn_add1 = findViewById(R.id.btn_add1);
         btn_clear = findViewById(R.id.btn_clear);
         btn_delete = findViewById(R.id.btn_delete);
+        btn_confirm1 = findViewById(R.id.btn_confirm1);
         piechart = findViewById(R.id.piechart);
         tv_protein = findViewById(R.id.tv_protein);
         tv_carbs = findViewById(R.id.tv_carbs);
         tv_fat = findViewById(R.id.tv_fat);
+        tv_weight = findViewById(R.id.tv_weight);
         cv_weightpanel = findViewById(R.id.cv_weightpanel);
         cv_foodpanel = findViewById(R.id.cv_foodpanel);
         numberPicker = findViewById(R.id.numberPicker);
@@ -63,6 +65,21 @@ public class Calories extends AppCompatActivity {
         String selectedGoals = getIntent().getStringExtra("selectedGoals");
 
         final ArrayList<FoodModel> selectedFoodList = new ArrayList<>();
+
+        numberPicker.setMinValue(0);
+        numberPicker.setMaxValue(1000);
+
+// Set up a custom formatter to display float values
+        final NumberPicker.Formatter formatter = new NumberPicker.Formatter() {
+            @Override
+            public String format(int value) {
+                // Convert the integer value to a float and format it as needed
+                float floatValue = value / 10.0f;
+                return String.format("%.1f", floatValue);
+            }
+        };
+
+        numberPicker.setFormatter(formatter);
 
         if (gender != null && age != null && selectedGoals != null) {
             int intAge = Integer.parseInt(age);
@@ -276,6 +293,22 @@ public class Calories extends AppCompatActivity {
 
                 // Notify the adapter that the data has changed
                 ((ArrayAdapter<FoodModel>) lv_latestList.getAdapter()).notifyDataSetChanged();
+            }
+        });
+        btn_confirm1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Get the selected value from the NumberPicker
+                float selectedValue = numberPicker.getValue() / 10.0f;
+
+                // Format the selected value as needed
+                String formattedValue = String.format("%.1f", selectedValue);
+
+                // Update the tv_weight TextView with the selected value
+                tv_weight.setText(formattedValue + " kg");
+
+                // Hide the weight panel or perform any other necessary actions
+                cv_weightpanel.setVisibility(View.GONE);
             }
         });
 
