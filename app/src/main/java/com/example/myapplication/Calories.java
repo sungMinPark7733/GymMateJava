@@ -4,13 +4,17 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.SparseBooleanArray;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import java.text.DecimalFormat;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -18,19 +22,18 @@ import androidx.cardview.widget.CardView;
 import org.eazegraph.lib.charts.PieChart;
 import org.eazegraph.lib.models.PieModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Calories extends AppCompatActivity {
 
-    private Button btn_addFood, btn_addWeight, btn_cancel1, btn_cancel2;
+    private Button btn_addFood, btn_addWeight, btn_cancel1, btn_cancel2, btn_add1, btn_clear, btn_delete;
     private TextView tv_calDisplay, selectedValueTextView;
     private PieChart piechart;
     private TextView tv_protein, tv_carbs, tv_fat;
     private CardView cv_weightpanel, cv_foodpanel;
     private NumberPicker numberPicker;
-    private Spinner spinnerAdd, spinnerSize;
-    private ListView lv_foodList;
-
+    private ListView lv_foodList, lv_latestList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +44,9 @@ public class Calories extends AppCompatActivity {
         btn_addWeight = findViewById(R.id.btn_addWeight);
         btn_cancel1 = findViewById(R.id.btn_cancel1);
         btn_cancel2 = findViewById(R.id.btn_cancel2);
+        btn_add1 = findViewById(R.id.btn_add1);
+        btn_clear = findViewById(R.id.btn_clear);
+        btn_delete = findViewById(R.id.btn_delete);
         piechart = findViewById(R.id.piechart);
         tv_protein = findViewById(R.id.tv_protein);
         tv_carbs = findViewById(R.id.tv_carbs);
@@ -49,44 +55,14 @@ public class Calories extends AppCompatActivity {
         cv_foodpanel = findViewById(R.id.cv_foodpanel);
         numberPicker = findViewById(R.id.numberPicker);
         selectedValueTextView = findViewById(R.id.selectedValueTextView);
-//        spinnerAdd = findViewById(R.id.spinnerAdd);
-//        spinnerSize = findViewById(R.id.spinnerSize);
         lv_foodList = findViewById(R.id.lv_foodList);
-
+        lv_latestList = findViewById(R.id.lv_latestList);
 
         String gender = getIntent().getStringExtra("gender");
         String age = getIntent().getStringExtra("age");
         String selectedGoals = getIntent().getStringExtra("selectedGoals");
 
-//        // DB Helper
-//        FoodDatabaseHelper dbHelper = new FoodDatabaseHelper(Calories.this);
-//        SQLiteDatabase db = dbHelper.getReadableDatabase();
-//
-//        String query = "SELECT * FROM foods;";
-//        Cursor cursor = db.rawQuery(query, null);
-//
-//
-//        int idIndex = cursor.getColumnIndex(FoodDatabaseHelper.COLUMN_ID);
-//        int foodNameIndex = cursor.getColumnIndex(FoodDatabaseHelper.COLUMN_FOOD_NAME);
-//        int caloriesIndex = cursor.getColumnIndex(FoodDatabaseHelper.COLUMN_FOOD_CALORIES);
-//        int portionIndex = cursor.getColumnIndex(FoodDatabaseHelper.COLUMN_FOOD_PORTION);
-//        int proteinIndex = cursor.getColumnIndex(FoodDatabaseHelper.COLUMN_FOOD_PROTEIN);
-//        int carbsIndex = cursor.getColumnIndex(FoodDatabaseHelper.COLUMN_FOOD_CARBS);
-//        int fatIndex = cursor.getColumnIndex(FoodDatabaseHelper.COLUMN_FOOD_FAT);
-//
-//        while (cursor.moveToNext()) {
-//            int id = cursor.getInt(idIndex);
-//            String foodName = cursor.getString(foodNameIndex);
-//            int calories = cursor.getInt(caloriesIndex);
-//            String portion = cursor.getString(portionIndex);
-//            float protein = cursor.getFloat(proteinIndex);
-//            float carbs = cursor.getFloat(carbsIndex);
-//            float fat = cursor.getFloat(fatIndex);
-//        }
-//        // Close the cursor and database when done
-//        cursor.close();
-//        db.close();
-
+        final ArrayList<FoodModel> selectedFoodList = new ArrayList<>();
 
         if (gender != null && age != null && selectedGoals != null) {
             int intAge = Integer.parseInt(age);
@@ -163,9 +139,13 @@ public class Calories extends AppCompatActivity {
             tv_calDisplay.setText(calorieDisplay);
 
             // Calculating nutrition intake
-            tv_protein.setText("30% " + 0.3 * calorieValue + " cal Protein");
-            tv_carbs.setText("40% " + 0.4 * calorieValue + " cal Carbs");
-            tv_fat.setText("30% " + 0.3 * calorieValue + " cal Fat");
+            tv_protein.setText("10~30% " + calculateValue(calorieValue, 10, 4) + " ~ " + calculateValue(calorieValue, 30, 4) + " grams Protein");
+            tv_carbs.setText("45~65% " + calculateValue(calorieValue, 45, 4) + " ~ " + calculateValue(calorieValue, 65, 4) + " grams Carbs");
+            if (intAge >= 51) {
+                tv_fat.setText("10~30% " + calculateValue(calorieValue, 10, 9) * 2 + " ~ " + calculateValue(calorieValue, 30, 9) + " grams Fat");
+            } else {
+                tv_fat.setText("10~30% " + calculateValue(calorieValue, 10, 9) + " ~ " + calculateValue(calorieValue, 30, 9) + " grams Fat");
+            }
 
             // Set the data and color to the pie chart
             piechart.addPieSlice(
@@ -198,11 +178,11 @@ public class Calories extends AppCompatActivity {
                     cv_foodpanel.setVisibility(View.GONE);
                 } else {
                     cv_foodpanel.setVisibility(View.VISIBLE);
-//                    FoodDatabaseHelper foodDatabaseHelper = new FoodDatabaseHelper(Calories.this);
-//                    List<FoodModel> everyfood = foodDatabaseHelper.getEveryfood();
-//
-//                    ArrayAdapter foodArrayAdapter = new ArrayAdapter<FoodModel>(Calories.this, android.R.layout.simple_list_item_1, everyfood);
-//                    lv_foodList.setAdapter(foodArrayAdapter);
+                    FoodDatabaseHelper dataBaseHelper = new FoodDatabaseHelper(Calories.this);
+                    List<FoodModel> everyfood = dataBaseHelper.getEveryfood();
+
+                    ArrayAdapter userArrayAdapter = new ArrayAdapter<FoodModel>(Calories.this, android.R.layout.simple_list_item_multiple_choice, everyfood);
+                    lv_foodList.setAdapter(userArrayAdapter);
                 }
             }
         });
@@ -238,5 +218,73 @@ public class Calories extends AppCompatActivity {
                 }
             }
         });
+        btn_add1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Loop through the items in lv_foodList
+                int itemCount = lv_foodList.getCount();
+                for (int i = 0; i < itemCount; i++) {
+                    if (lv_foodList.isItemChecked(i)) {
+                        // If the item is checked, add it to the selectedFoodList
+                        selectedFoodList.add((FoodModel) lv_foodList.getItemAtPosition(i));
+                    }
+                }
+
+                // Create an adapter for lv_latestList with the selectedFoodList
+                ArrayAdapter<FoodModel> latestListAdapter = new ArrayAdapter<>(Calories.this,
+                        android.R.layout.simple_list_item_multiple_choice, selectedFoodList);
+
+                // Set the adapter for lv_latestList
+                lv_latestList.setAdapter(latestListAdapter);
+
+                // Notify the adapter that the data has changed
+                latestListAdapter.notifyDataSetChanged();
+
+                // Toggle the visibility of the foodpanel
+                cv_foodpanel.setVisibility(View.GONE);
+            }
+        });
+        btn_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                // Create a list to store the items to be deleted
+                List<FoodModel> itemsToDelete = new ArrayList<>();
+
+                // Loop through the items in lv_latestList
+                int itemCount = lv_latestList.getCount();
+                for (int i = 0; i < itemCount; i++) {
+                    if (lv_latestList.isItemChecked(i)) {
+                        // If the item is checked, add it to the itemsToDelete
+                        itemsToDelete.add((FoodModel) lv_latestList.getItemAtPosition(i));
+                    }
+                }
+
+                // Remove the selected items from selectedFoodList
+                selectedFoodList.removeAll(itemsToDelete);
+
+                // Notify the adapter that the data has changed
+                ((ArrayAdapter<FoodModel>) lv_latestList.getAdapter()).notifyDataSetChanged();
+            }
+        });
+
+        btn_clear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Clear all items from selectedFoodList
+                selectedFoodList.clear();
+
+                // Notify the adapter that the data has changed
+                ((ArrayAdapter<FoodModel>) lv_latestList.getAdapter()).notifyDataSetChanged();
+            }
+        });
+
+    }
+
+    public static int calculateValue(double doubleValue, int rate, int divideby) {
+        // Calculate the result
+        int result = (int) ((rate * doubleValue) / 100 / divideby);
+
+        return result;
     }
 }

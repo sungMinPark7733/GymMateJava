@@ -1,5 +1,4 @@
 package com.example.myapplication;
-
 public class FoodModel {
 
     private int id;
@@ -82,15 +81,12 @@ public class FoodModel {
     // toString method
     @Override
     public String toString() {
-        return "FoodModel{" +
-                "id=" + id +
-                ", foodname='" + foodname + '\'' +
-                ", calories=" + calories +
-                ", portion='" + portion + '\'' +
-                ", protein=" + protein +
-                ", carbs=" + carbs +
-                ", fat=" + fat +
-                '}';
+        return foodname  + ", " +
+                calories + " Calories per " +
+                portion + " Protein: " +
+                protein + "g Carbs: "+
+                carbs +"g Fat: " +
+                fat + "g ";
     }
 
 }

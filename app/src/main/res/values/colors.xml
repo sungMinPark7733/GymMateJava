@@ -12,8 +12,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="purple">#ff6750a4</color>
 
-    <color name="protein">#fb7268</color>
-    <color name="carb">#ededf2</color>
-    <color name="fat">#E3E0E0</color>
+    <color name="protein">#FFA726</color>
+    <color name="carbs">#66BB6A</color>
+    <color name="fat">#EF5350</color>
 
 </resources>

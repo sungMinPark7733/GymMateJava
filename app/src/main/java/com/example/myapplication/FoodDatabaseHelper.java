@@ -4,7 +4,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,14 +35,17 @@ public class FoodDatabaseHelper extends SQLiteOpenHelper {
                     COLUMN_FOOD_CARBS + " REAL, " +
                     COLUMN_FOOD_FAT + " REAL)";
 
-    public List<FoodModel> getEveryfood(){
+    public List<FoodModel> getEveryfood() {
         List<FoodModel> returnList = new ArrayList<>();
 
         String queryString = "SELECT * FROM " + FOOD_TABLE;
+
         SQLiteDatabase db = this.getReadableDatabase();
+
         Cursor cursor = db.rawQuery(queryString, null);
-        if(cursor.moveToFirst()){
-            do{
+
+        if (cursor.moveToFirst()) {
+            do {
                 int foodID = cursor.getInt(0);
                 String foodName = cursor.getString(1);
                 int foodCalories = cursor.getInt(2);
@@ -52,22 +54,24 @@ public class FoodDatabaseHelper extends SQLiteOpenHelper {
                 float foodCarbs = cursor.getFloat(5);
                 float foodFat = cursor.getFloat(6);
 
-
-                FoodModel foodModel = new FoodModel(foodID, foodName, foodCalories, foodPortion, foodProtein, foodCarbs, foodFat);
-                returnList.add(foodModel);
+                FoodModel newFoodModel = new FoodModel(foodID, foodName, foodCalories, foodPortion, foodProtein, foodCarbs, foodFat);
+                returnList.add(newFoodModel);
 
             }
 
             while (cursor.moveToNext());
+        } else {
+            // Do nothing
         }
 
-
+        cursor.close();
+        db.close();
         return returnList;
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(CREATE_TABLE_QUERY);
+//        db.execSQL(CREATE_TABLE_QUERY);
     }
 
     @Override
