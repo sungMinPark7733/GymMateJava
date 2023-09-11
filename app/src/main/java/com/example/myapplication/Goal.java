@@ -23,7 +23,6 @@ public class Goal extends AppCompatActivity {
 
         // button listeners
         btn_previous.setOnClickListener(view -> {
-            // Prepare to capture selected goals
             String selectedGoals = "";
 
             // Check if the "Muscle Building" checkbox is selected
@@ -40,17 +39,16 @@ public class Goal extends AppCompatActivity {
                 selectedGoals += cb_weight.getText().toString();
             }
 
-            // Retrieve data from previous intent
+            String email = getIntent().getStringExtra("email");
             String name = getIntent().getStringExtra("name");
             String gender = getIntent().getStringExtra("gender");
             String age = getIntent().getStringExtra("age");
             String height = getIntent().getStringExtra("height");
             String weight = getIntent().getStringExtra("weight");
 
-            // Prepare to navigate to the Days activity
             Intent intent = new Intent(Goal.this, Weight.class);
 
-            // Pass collected data to the next activity
+            intent.putExtra("email", email);
             intent.putExtra("name", name);
             intent.putExtra("gender", gender);
             intent.putExtra("age", age);
@@ -58,39 +56,33 @@ public class Goal extends AppCompatActivity {
             intent.putExtra("weight", weight);
             intent.putExtra("selectedGoals", selectedGoals);
 
-            // Initiate the transition to the next activity
             startActivity(intent);
         });
 
         btn_next.setOnClickListener(view -> {
-            // Prepare to capture selected goals
             String selectedGoals = "";
 
-            // Check if the "Muscle Building" checkbox is selected
             if (cb_muscle.isChecked()) {
                 selectedGoals += cb_muscle.getText().toString();
             }
 
-            // Check if the "Weight Loss" checkbox is selected
             if (cb_weight.isChecked()) {
-                // Add a comma if "Muscle Building" is also selected
                 if (!selectedGoals.isEmpty()) {
                     selectedGoals += ", ";
                 }
                 selectedGoals += cb_weight.getText().toString();
             }
 
-            // Retrieve data from previous intent
+            String email = getIntent().getStringExtra("email");
             String name = getIntent().getStringExtra("name");
             String gender = getIntent().getStringExtra("gender");
             String age = getIntent().getStringExtra("age");
             String height = getIntent().getStringExtra("height");
             String weight = getIntent().getStringExtra("weight");
 
-            // Prepare to navigate to the Days activity
             Intent intent = new Intent(Goal.this, Days.class);
 
-            // Pass collected data to the next activity
+            intent.putExtra("email", email);
             intent.putExtra("name", name);
             intent.putExtra("gender", gender);
             intent.putExtra("age", age);
@@ -98,7 +90,6 @@ public class Goal extends AppCompatActivity {
             intent.putExtra("weight", weight);
             intent.putExtra("selectedGoals", selectedGoals);
 
-            // Initiate the transition to the next activity
             startActivity(intent);
         });
     }

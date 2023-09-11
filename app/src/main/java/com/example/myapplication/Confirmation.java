@@ -9,7 +9,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class Confirmation extends AppCompatActivity {
-    TextView tv_namecheck, tv_ageCheck, tv_genderCheck, tv_heightcheck, tv_weightcheck, tv_goalcheck, tv_dayscheck;
+    TextView tv_emailcheck, tv_namecheck, tv_ageCheck, tv_genderCheck, tv_heightcheck, tv_weightcheck, tv_goalcheck, tv_dayscheck;
     Button btn_previous, btn_confirm;
 
     @Override
@@ -19,6 +19,7 @@ public class Confirmation extends AppCompatActivity {
 
         btn_previous = findViewById(R.id.btn_previous);
         btn_confirm = findViewById(R.id.btn_confirm);
+        tv_emailcheck = findViewById(R.id.tv_emailcheck);
         tv_namecheck = findViewById(R.id.tv_namecheck);
         tv_genderCheck = findViewById(R.id.tv_genderCheck);
         tv_ageCheck = findViewById(R.id.tv_ageCheck);
@@ -28,6 +29,10 @@ public class Confirmation extends AppCompatActivity {
         tv_dayscheck = findViewById(R.id.tv_dayscheck);
 
         // Retrieve the data from the intent extra
+        String email = getIntent().getStringExtra("email");
+        if (email != null) {
+            tv_emailcheck.setText("Your email: " + email);
+        }
         String name = getIntent().getStringExtra("name");
         if (name != null) {
             tv_namecheck.setText("Your name: " + name);
@@ -59,10 +64,9 @@ public class Confirmation extends AppCompatActivity {
 
         // button listenersmy
         btn_previous.setOnClickListener(view -> {
-            // Prepare to navigate to the Confirmation activity
             Intent intent = new Intent(Confirmation.this, Days.class);
 
-            // Pass user information to the next activity
+            intent.putExtra("email", email);
             intent.putExtra("name", name);
             intent.putExtra("gender", gender);
             intent.putExtra("age", age);
@@ -71,7 +75,6 @@ public class Confirmation extends AppCompatActivity {
             intent.putExtra("selectedGoals", selectedGoals);
             intent.putExtra("daysChecked", days);
 
-            // Initiate the transition to the Confirmation activity
             startActivity(intent);
 
         });
@@ -79,6 +82,7 @@ public class Confirmation extends AppCompatActivity {
         btn_confirm.setOnClickListener(view -> {
             try {
                 UserModel userModel = new UserModel(-1,
+                        email,
                         name,
                         gender,
                         Integer.parseInt(age),

@@ -22,42 +22,36 @@ public class Age extends AppCompatActivity {
 
         // button listeners
         btn_previous.setOnClickListener(view -> {
-            // Extract the entered age
             String enteredAge = et_age.getText().toString();
 
-            // Retrieve the name and gender from the previous intent
+            String email = getIntent().getStringExtra("email");
             String name = getIntent().getStringExtra("name");
             String gender = getIntent().getStringExtra("gender");
 
-            // Prepare to proceed to the Height activity
             Intent intent = new Intent(Age.this, Gender.class);
 
-            // Pass the name, gender, and age information to the next activity
+            intent.putExtra("email", email);
             intent.putExtra("name", name);
             intent.putExtra("gender", gender);
             intent.putExtra("age", enteredAge);
 
-            // Initiate the transition to the next activity
             startActivity(intent);
         });
 
         btn_next.setOnClickListener(view -> {
-            // Extract the entered age
             String enteredAge = et_age.getText().toString();
 
-            // Retrieve the name and gender from the previous intent
+            String email = getIntent().getStringExtra("email");
             String name = getIntent().getStringExtra("name");
             String gender = getIntent().getStringExtra("gender");
 
-            // Prepare to proceed to the Height activity
             Intent intent = new Intent(Age.this, Height.class);
 
-            // Pass the name, gender, and age information to the next activity
+            intent.putExtra("email", email);
             intent.putExtra("name", name);
             intent.putExtra("gender", gender);
             intent.putExtra("age", enteredAge);
 
-            // Initiate the transition to the next activity
             startActivity(intent);
         });
     }

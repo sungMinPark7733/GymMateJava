@@ -33,11 +33,13 @@ public class Calories extends AppCompatActivity {
     private CardView cv_weightpanel, cv_foodpanel;
     private NumberPicker numberPicker;
     private ListView lv_foodList, lv_latestList;
+    private String gender, age, selectedGoals;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calories);
+
 
         tv_calDisplay = findViewById(R.id.tv_calDisplay);
         btn_addFood = findViewById(R.id.btn_addFood);
@@ -60,16 +62,28 @@ public class Calories extends AppCompatActivity {
         lv_foodList = findViewById(R.id.lv_foodList);
         lv_latestList = findViewById(R.id.lv_latestList);
 
-        String gender = getIntent().getStringExtra("gender");
-        String age = getIntent().getStringExtra("age");
-        String selectedGoals = getIntent().getStringExtra("selectedGoals");
 
         final ArrayList<FoodModel> selectedFoodList = new ArrayList<>();
+
+        UserModel user = (UserModel) getIntent().getSerializableExtra("user");
+
+        if (user != null) {
+            // Data is coming from the UserModel object
+            gender = user.getGender();
+            age = String.valueOf(user.getAge());
+            selectedGoals = user.getGoal();
+        } else {
+            // Data is coming from getIntent() method
+            gender = getIntent().getStringExtra("gender");
+            age = getIntent().getStringExtra("age");
+            selectedGoals = getIntent().getStringExtra("selectedGoals");
+        }
+
 
         numberPicker.setMinValue(0);
         numberPicker.setMaxValue(1000);
 
-// Set up a custom formatter to display float values
+        // Set up a custom formatter to display float values
         final NumberPicker.Formatter formatter = new NumberPicker.Formatter() {
             @Override
             public String format(int value) {

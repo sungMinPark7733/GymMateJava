@@ -22,18 +22,16 @@ public class Height extends AppCompatActivity {
 
         // button listeners
         btn_previous.setOnClickListener(view -> {
-            // Extract the entered height
             String enteredHeight = et_height.getText().toString();
 
-            // Retrieve the name, gender, and age from the previous intent
+            String email = getIntent().getStringExtra("email");
             String name = getIntent().getStringExtra("name");
             String gender = getIntent().getStringExtra("gender");
             String age = getIntent().getStringExtra("age");
 
-            // Prepare to proceed to the Weight activity
             Intent intent = new Intent(Height.this, Age.class);
 
-            // Pass the name, gender, age, and height information to the next activity
+            intent.putExtra("email", email);
             intent.putExtra("name", name);
             intent.putExtra("gender", gender);
             intent.putExtra("age", age);
@@ -44,24 +42,22 @@ public class Height extends AppCompatActivity {
         });
 
         btn_next.setOnClickListener(view -> {
-            // Extract the entered height
             String enteredHeight = et_height.getText().toString();
 
-            // Retrieve the name, gender, and age from the previous intent
+            String email = getIntent().getStringExtra("email");
             String name = getIntent().getStringExtra("name");
             String gender = getIntent().getStringExtra("gender");
             String age = getIntent().getStringExtra("age");
 
-            // Prepare to proceed to the Weight activity
+
             Intent intent = new Intent(Height.this, Weight.class);
 
-            // Pass the name, gender, age, and height information to the next activity
+            intent.putExtra("email", email);
             intent.putExtra("name", name);
             intent.putExtra("gender", gender);
             intent.putExtra("age", age);
             intent.putExtra("height", enteredHeight);
 
-            // Initiate the transition to the next activity
             startActivity(intent);
         });
     }

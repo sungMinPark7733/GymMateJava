@@ -32,38 +32,31 @@ public class Gender extends AppCompatActivity {
         });
 
         btn_previous.setOnClickListener(view -> {
-            // Get the entered gender from the TextView
             String enteredGender = tv_gender.getText().toString();
 
-            // Get the name from the previous intent
+            String email = getIntent().getStringExtra("email");
             String name = getIntent().getStringExtra("name");
 
-            // Prepare to navigate to the Age activity
             Intent intent = new Intent(Gender.this, MainActivity.class);
 
-            // Pass the name and gender information to the next activity
+            intent.putExtra("email", email);
             intent.putExtra("name", name);
             intent.putExtra("gender", enteredGender);
 
-            // Initiate the activity transition
             startActivity(intent);
         });
 
         btn_next.setOnClickListener(view -> {
-            // Get the entered gender from the TextView
             String enteredGender = tv_gender.getText().toString();
-
-            // Get the name from the previous intent
+            String email = getIntent().getStringExtra("email");
             String name = getIntent().getStringExtra("name");
 
-            // Prepare to navigate to the Age activity
             Intent intent = new Intent(Gender.this, Age.class);
 
-            // Pass the name and gender information to the next activity
+            intent.putExtra("email", email);
             intent.putExtra("name", name);
             intent.putExtra("gender", enteredGender);
 
-            // Initiate the activity transition
             startActivity(intent);
         });
     }

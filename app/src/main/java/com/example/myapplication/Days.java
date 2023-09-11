@@ -43,10 +43,9 @@ public class Days extends AppCompatActivity {
 
 
         btn_previous.setOnClickListener(view -> {
-            // Get the selected number of days
             String enteredDays = Arrays.toString(daysChecked);
 
-            // Retrieve user information from previous intent
+            String email = getIntent().getStringExtra("email");
             String name = getIntent().getStringExtra("name");
             String gender = getIntent().getStringExtra("gender");
             String age = getIntent().getStringExtra("age");
@@ -54,10 +53,9 @@ public class Days extends AppCompatActivity {
             String weight = getIntent().getStringExtra("weight");
             String selectedGoals = getIntent().getStringExtra("selectedGoals");
 
-            // Prepare to navigate to the Confirmation activity
             Intent intent = new Intent(Days.this, Goal.class);
 
-            // Pass user information and selected days to the next activity
+            intent.putExtra("email", email);
             intent.putExtra("name", name);
             intent.putExtra("gender", gender);
             intent.putExtra("age", age);
@@ -66,15 +64,13 @@ public class Days extends AppCompatActivity {
             intent.putExtra("selectedGoals", selectedGoals);
             intent.putExtra("daysChecked", enteredDays); // Include the selected days
 
-            // Initiate the transition to the Goal activity
             startActivity(intent);
         });
 
         btn_next.setOnClickListener(view -> {
-            // Get the selected number of days
             String enteredDays = Arrays.toString(daysChecked);
 
-            // Retrieve user information from previous intent
+            String email = getIntent().getStringExtra("email");
             String name = getIntent().getStringExtra("name");
             String gender = getIntent().getStringExtra("gender");
             String age = getIntent().getStringExtra("age");
@@ -82,10 +78,9 @@ public class Days extends AppCompatActivity {
             String weight = getIntent().getStringExtra("weight");
             String selectedGoals = getIntent().getStringExtra("selectedGoals");
 
-            // Prepare to navigate to the Confirmation activity
             Intent intent = new Intent(Days.this, Confirmation.class);
 
-            // Pass user information and selected days to the next activity
+            intent.putExtra("email", email);
             intent.putExtra("name", name);
             intent.putExtra("gender", gender);
             intent.putExtra("age", age);
@@ -94,7 +89,6 @@ public class Days extends AppCompatActivity {
             intent.putExtra("selectedGoals", selectedGoals);
             intent.putExtra("daysChecked", enteredDays); // Include the selected days
 
-            // Initiate the transition to the Confirmation activity
             startActivity(intent);
         });
 
