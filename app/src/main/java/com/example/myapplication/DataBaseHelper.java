@@ -25,7 +25,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             "CREATE TABLE " +
                     USER_TABLE + " (" +
                     COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    COLUMN_USER_EMAIL + " TEXT, " +
+                    COLUMN_USER_EMAIL + " TEXT UNIQUE, " +
                     COLUMN_USER_NAME + " TEXT, " +
                     COLUMN_USER_GENDER + " TEXT, " +
                     COLUMN_USER_AGE + " INT, " +
@@ -68,25 +68,25 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return insert != -1;
     }
 
-    public boolean doesEmailExist(String email) {
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        // Define the query to check if the email exists
-        String query = "SELECT " + COLUMN_USER_EMAIL + " FROM " + USER_TABLE +
-                " WHERE " + COLUMN_USER_EMAIL + " = ?";
-
-        // Perform the query with the email as a parameter
-        Cursor cursor = db.rawQuery(query, new String[]{email});
-
-        // Check if a row with the email exists
-        boolean emailExists = cursor.moveToFirst();
-
-        // Close the cursor and database
-        cursor.close();
-        db.close();
-
-        return emailExists;
-    }
+//    public boolean doesEmailExist(String email) {
+//        SQLiteDatabase db = this.getReadableDatabase();
+//
+//        // Define the query to check if the email exists
+//        String query = "SELECT " + COLUMN_USER_EMAIL + " FROM " + USER_TABLE +
+//                " WHERE " + COLUMN_USER_EMAIL + " = ?";
+//
+//        // Perform the query with the email as a parameter
+//        Cursor cursor = db.rawQuery(query, new String[]{email});
+//
+//        // Check if a row with the email exists
+//        boolean emailExists = cursor.moveToFirst();
+//
+//        // Close the cursor and database
+//        cursor.close();
+//        db.close();
+//
+//        return emailExists;
+//    }
     public UserModel getUserByEmail(String email) {
         SQLiteDatabase db = this.getReadableDatabase();
         UserModel user = null;
