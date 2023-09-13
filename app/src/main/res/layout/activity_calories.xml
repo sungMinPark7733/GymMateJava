@@ -104,17 +104,17 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="25dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="8dp"
                     android:text="Current weight"
                     android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:layout_marginTop="8dp"/>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tv_weight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="50dp"
+                    android:layout_gravity="center"
                     android:text=" "
                     android:textSize="24sp" />
             </LinearLayout>
@@ -146,9 +146,9 @@
             android:orientation="vertical">
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
+                android:layout_gravity="center"
                 android:layout_marginTop="8dp"
                 android:text="Calories required"
                 android:textAlignment="center"
@@ -157,49 +157,57 @@
 
             <TextView
                 android:id="@+id/tv_calDisplay"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
+                android:layout_gravity="center"
                 android:layout_marginTop="8dp"
                 android:text="0 cal"
                 android:textSize="18sp" />
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
+                android:layout_gravity="center"
                 android:layout_marginTop="8dp"
                 android:text="Nutrition required"
                 android:textAlignment="center"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/tv_protein"
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:layout_marginTop="8dp"
-                android:text="0g protein"
-                android:textSize="18sp" />
+                android:layout_gravity="center"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tv_carbs"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:layout_marginTop="8dp"
-                android:text="0g carbs"
-                android:textSize="18sp" />
+                <TextView
+                    android:id="@+id/tv_protein"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="8dp"
+                    android:text="0g protein"
+                    android:textSize="18sp" />
 
-            <TextView
-                android:id="@+id/tv_fat"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:layout_marginTop="8dp"
-                android:text="0g fat"
-                android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/tv_carbs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="8dp"
+                    android:text="0g carbs"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/tv_fat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="8dp"
+                    android:text="0g fat"
+                    android:textSize="18sp" />
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -226,9 +234,9 @@
             android:orientation="vertical">
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
+                android:layout_gravity="center"
                 android:layout_marginTop="8dp"
                 android:text="Latest"
                 android:textAlignment="center"
@@ -244,13 +252,13 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:orientation="horizontal">
 
                 <Button
                     android:id="@+id/btn_clear"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="100dp"
                     android:text="Clear"
                     android:textSize="18sp" />
 
@@ -263,105 +271,6 @@
             </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
-
-    <!--    <androidx.cardview.widget.CardView-->
-    <!--        android:id="@+id/cv_quickadd"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="0dp"-->
-    <!--        android:layout_below="@+id/cardViewGraph"-->
-    <!--        android:layout_marginStart="8dp"-->
-    <!--        android:layout_marginTop="8dp"-->
-    <!--        android:layout_marginEnd="8dp"-->
-    <!--        android:elevation="10dp"-->
-    <!--        app:cardCornerRadius="10dp"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toBottomOf="@id/cv_latest">-->
-
-    <!--        <LinearLayout-->
-    <!--            android:id="@+id/ll_quickadd"-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:orientation="vertical">-->
-
-    <!--            <TextView-->
-    <!--                android:layout_width="match_parent"-->
-    <!--                android:layout_height="wrap_content"-->
-    <!--                android:layout_marginLeft="25dp"-->
-    <!--                android:layout_marginTop="8dp"-->
-    <!--                android:text="Quick add"-->
-    <!--                android:textAlignment="center"-->
-    <!--                android:textSize="18sp"-->
-    <!--                android:textStyle="bold" />-->
-
-    <!--            <LinearLayout-->
-    <!--                android:layout_width="match_parent"-->
-    <!--                android:layout_height="wrap_content"-->
-    <!--                android:orientation="horizontal">-->
-
-    <!--                <TextView-->
-    <!--                    android:id="@+id/tv_quickadd1"-->
-    <!--                    android:layout_width="wrap_content"-->
-    <!--                    android:layout_height="wrap_content"-->
-    <!--                    android:layout_marginLeft="25dp"-->
-    <!--                    android:layout_marginTop="8dp"-->
-    <!--                    android:text=" "-->
-    <!--                    android:textSize="18sp" />-->
-
-    <!--                <Button-->
-    <!--                    android:layout_width="wrap_content"-->
-    <!--                    android:layout_height="wrap_content"-->
-    <!--                    android:layout_marginLeft="276dp"-->
-    <!--                    android:text="Add" />-->
-
-    <!--            </LinearLayout>-->
-
-    <!--            <LinearLayout-->
-    <!--                android:layout_width="match_parent"-->
-    <!--                android:layout_height="wrap_content"-->
-    <!--                android:orientation="horizontal">-->
-
-    <!--                <TextView-->
-    <!--                    android:id="@+id/tv_quickadd2"-->
-    <!--                    android:layout_width="wrap_content"-->
-    <!--                    android:layout_height="wrap_content"-->
-    <!--                    android:layout_marginLeft="25dp"-->
-    <!--                    android:layout_marginTop="8dp"-->
-    <!--                    android:text=" "-->
-    <!--                    android:textSize="18sp" />-->
-
-    <!--                <Button-->
-    <!--                    android:layout_width="wrap_content"-->
-    <!--                    android:layout_height="wrap_content"-->
-    <!--                    android:layout_marginLeft="276dp"-->
-    <!--                    android:text="Add"/>-->
-
-    <!--            </LinearLayout>-->
-
-    <!--            <LinearLayout-->
-    <!--                android:layout_width="match_parent"-->
-    <!--                android:layout_height="wrap_content"-->
-    <!--                android:orientation="horizontal">-->
-
-    <!--                <TextView-->
-    <!--                    android:id="@+id/tv_quickadd3"-->
-    <!--                    android:layout_width="wrap_content"-->
-    <!--                    android:layout_height="wrap_content"-->
-    <!--                    android:layout_marginLeft="25dp"-->
-    <!--                    android:layout_marginTop="8dp"-->
-    <!--                    android:text=" "-->
-    <!--                    android:textSize="18sp" />-->
-
-    <!--                <Button-->
-    <!--                    android:layout_width="wrap_content"-->
-    <!--                    android:layout_height="wrap_content"-->
-    <!--                    android:layout_marginLeft="276dp"-->
-    <!--                    android:text="Add"/>-->
-    <!--            </LinearLayout>-->
-
-
-    <!--        </LinearLayout>-->
-    <!--    </androidx.cardview.widget.CardView>-->
 
     <LinearLayout
         android:id="@+id/buttonBar1"
@@ -470,25 +379,29 @@
             android:text="Today"
             android:textSize="24sp" />
 
-        <Button
-            android:id="@+id/btn_cancel1"
-            android:layout_width="180dp"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|left"
-            android:layout_marginTop="32dp"
-            android:layout_marginBottom="24dp"
-            android:text="Cancel"
-            android:textSize="32dp" />
+            android:layout_gravity="center|bottom"
+            android:layout_marginBottom="8dp"
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/btn_confirm1"
-            android:layout_width="180dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right"
-            android:layout_marginBottom="24dp"
-            android:text="Confirm"
-            android:textColorLink="@color/color_one"
-            android:textSize="32dp" />
+            <Button
+                android:id="@+id/btn_cancel1"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|left"
+                android:text="Cancel"
+                android:textSize="32dp" />
+
+            <Button
+                android:id="@+id/btn_confirm1"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:text="Confirm"
+                android:textColorLink="@color/color_one"
+                android:textSize="32dp" />
+        </LinearLayout>
     </androidx.cardview.widget.CardView>
 
 
@@ -510,25 +423,28 @@
 
             />
 
-        <Button
-            android:id="@+id/btn_cancel2"
-            android:layout_width="180dp"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|left"
-            android:layout_marginTop="32dp"
-            android:layout_marginBottom="24dp"
-            android:text="Cancel"
-            android:textSize="32dp" />
+            android:layout_gravity="center|bottom"
+            android:layout_marginBottom="8dp"
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/btn_add1"
-            android:layout_width="180dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right"
-            android:layout_marginBottom="24dp"
-            android:text="Add"
-            android:textColorLink="@color/color_one"
-            android:textSize="32dp" />
+            <Button
+                android:id="@+id/btn_cancel2"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:text="Cancel"
+                android:textSize="32dp" />
+
+            <Button
+                android:id="@+id/btn_add1"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:text="Add"
+                android:textColorLink="@color/color_one"
+                android:textSize="32dp" />
+        </LinearLayout>
     </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
