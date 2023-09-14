@@ -7,14 +7,24 @@ import android.widget.CheckBox;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Days extends AppCompatActivity {
 
     CheckBox cb_monday, cb_tuesday, cb_wednesday, cb_thursday, cb_friday, cb_saturday, cb_sunday;
     boolean[] daysChecked;
+    List<String> checkedDaysList;
     Button btn_previous, btn_next;
 
+    private void updateCheckedDaysList(String day, boolean isChecked) {
+        if (isChecked) {
+            checkedDaysList.add(day);
+        } else {
+            checkedDaysList.remove(day);
+        }
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,15 +41,37 @@ public class Days extends AppCompatActivity {
 
         // Initialize the boolean array for days
         daysChecked = new boolean[7];
+        checkedDaysList = new ArrayList<>();
 
         // Set up CheckBox listeners to update the boolean array
-        cb_monday.setOnCheckedChangeListener((buttonView, isChecked) -> daysChecked[0] = isChecked);
-        cb_tuesday.setOnCheckedChangeListener((buttonView, isChecked) -> daysChecked[1] = isChecked);
-        cb_wednesday.setOnCheckedChangeListener((buttonView, isChecked) -> daysChecked[2] = isChecked);
-        cb_thursday.setOnCheckedChangeListener((buttonView, isChecked) -> daysChecked[3] = isChecked);
-        cb_friday.setOnCheckedChangeListener((buttonView, isChecked) -> daysChecked[4] = isChecked);
-        cb_saturday.setOnCheckedChangeListener((buttonView, isChecked) -> daysChecked[5] = isChecked);
-        cb_sunday.setOnCheckedChangeListener((buttonView, isChecked) -> daysChecked[6] = isChecked);
+        cb_monday.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            daysChecked[0] = isChecked;
+            updateCheckedDaysList("Monday", isChecked);
+        });
+        cb_tuesday.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            daysChecked[1] = isChecked;
+            updateCheckedDaysList("Tuesday", isChecked);
+        });
+        cb_wednesday.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            daysChecked[2] = isChecked;
+            updateCheckedDaysList("Wednesday", isChecked);
+        });
+        cb_thursday.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            daysChecked[3] = isChecked;
+            updateCheckedDaysList("Thursday", isChecked);
+        });
+        cb_friday.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            daysChecked[4] = isChecked;
+            updateCheckedDaysList("Friday", isChecked);
+        });
+        cb_saturday.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            daysChecked[5] = isChecked;
+            updateCheckedDaysList("Saturday", isChecked);
+        });
+        cb_sunday.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            daysChecked[6] = isChecked;
+            updateCheckedDaysList("Sunday", isChecked);
+        });
 
 
         btn_previous.setOnClickListener(view -> {
@@ -69,6 +101,7 @@ public class Days extends AppCompatActivity {
 
         btn_next.setOnClickListener(view -> {
             String enteredDays = Arrays.toString(daysChecked);
+            String daysList = checkedDaysList.toString();
 
             String email = getIntent().getStringExtra("email");
             String name = getIntent().getStringExtra("name");
@@ -87,7 +120,8 @@ public class Days extends AppCompatActivity {
             intent.putExtra("height", height);
             intent.putExtra("weight", weight);
             intent.putExtra("selectedGoals", selectedGoals);
-            intent.putExtra("daysChecked", enteredDays); // Include the selected days
+            intent.putExtra("daysChecked", enteredDays);
+            intent.putExtra("daysList", daysList);
 
             startActivity(intent);
         });

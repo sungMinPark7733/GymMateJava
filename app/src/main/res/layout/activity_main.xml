@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/color"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
@@ -18,74 +19,73 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="GymMate"
-            android:textSize="30sp"
             android:layout_gravity="center"
-            />
+            android:text="GymMate"
+            android:textSize="30sp" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Your Personal Fitness Companion"
-            android:textSize="18sp"
-            android:layout_marginTop="36dp"
             android:layout_gravity="center"
-            />
+            android:layout_marginTop="36dp"
+            android:text="Your Personal Fitness Companion"
+            android:textSize="18sp" />
 
     </androidx.cardview.widget.CardView>
+
     <androidx.cardview.widget.CardView
         android:id="@+id/bottom"
         android:layout_width="match_parent"
         android:layout_height="414dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintStart_toStartOf="parent">
 
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sign in or create an account"
-            android:textSize="16sp"
-            android:layout_marginTop="100dp"
             android:layout_gravity="center_horizontal"
-            />
+            android:layout_marginTop="100dp"
+            android:text="Sign in or create an account"
+            android:textSize="16sp" />
+
         <EditText
             android:id="@+id/et_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="130dp"
             android:layout_marginEnd="8dp"
             android:ems="10"
             android:gravity="center_horizontal"
             android:hint="Email"
-            android:textSize="24sp"
-            android:layout_marginTop="130dp"
-            />
+            android:textSize="24sp" />
+
         <CheckBox
             android:id="@+id/checkBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Remember me"
-            android:layout_marginTop="200dp"
             android:layout_gravity="left"
-            />
+            android:layout_marginTop="200dp"
+            android:text="Remember me" />
+
         <Button
             android:id="@+id/btn_continue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sign in"
-            android:textSize="24sp"
-            android:layout_marginTop="200dp"
             android:layout_gravity="right"
-            />
+            android:layout_marginTop="200dp"
+            android:text="Sign in"
+            android:textSize="24sp" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="or"
-            android:textSize="16sp"
-            android:layout_marginTop="260dp"
             android:layout_gravity="center_horizontal"
-            />
+            android:layout_marginTop="260dp"
+            android:text="or"
+            android:textSize="16sp" />
 
         <Button
             android:id="@+id/btn_newaccount"

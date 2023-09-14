@@ -32,23 +32,23 @@
                 android:id="@+id/piechart"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="15dp"
+                android:layout_marginLeft="8dp"
                 android:layout_weight="1"
-                android:padding="6dp" />
+                 />
 
             <!--Linear layout for nutrition names -->
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical">
+                    android:layout_gravity="center">
 
                     <View
                         android:layout_width="15dp"
@@ -64,9 +64,9 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
+                    android:layout_gravity="center"
                     android:layout_marginTop="5dp">
 
                     <View
@@ -83,9 +83,9 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
+                    android:layout_gravity="center"
                     android:layout_marginTop="5dp">
 
                     <View
@@ -105,7 +105,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="16dp"
                     android:text="Current weight"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -115,6 +115,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:layout_marginTop="16dp"
                     android:text=" "
                     android:textSize="24sp" />
             </LinearLayout>
