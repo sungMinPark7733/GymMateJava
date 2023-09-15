@@ -37,13 +37,13 @@
             android:ems="10"
             android:gravity="center_horizontal"
             android:hint="Enter your Email here"
-            android:inputType="text"
-            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@.1234567890"
+            android:inputType="textEmailAddress"
             android:textSize="32dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.444"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_email" />
+
 
         <Button
             android:id="@+id/btn_previous"
