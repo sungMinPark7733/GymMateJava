@@ -1,20 +1,15 @@
 package com.example.myapplication;
 
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
+
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.SparseBooleanArray;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.NumberPicker;
-import android.widget.Spinner;
 import android.widget.TextView;
-
-import java.text.DecimalFormat;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -28,12 +23,12 @@ import java.util.List;
 public class Calories extends AppCompatActivity {
 
     private Button btn_addFood, btn_addWeight, btn_cancel1, btn_cancel2, btn_add1, btn_clear, btn_delete, btn_confirm1;
-    private TextView tv_calDisplay, selectedValueTextView, tv_protein, tv_carbs, tv_fat, tv_weight;
+    private TextView tv_calDisplay, tv_protein, tv_carbs, tv_fat, tv_weight;
     private PieChart piechart;
     private CardView cv_weightpanel, cv_foodpanel;
     private NumberPicker numberPicker;
     private ListView lv_foodList, lv_latestList;
-    private String gender, age, selectedGoals;
+    private String gender, age, weight, selectedGoals;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +53,6 @@ public class Calories extends AppCompatActivity {
         cv_weightpanel = findViewById(R.id.cv_weightpanel);
         cv_foodpanel = findViewById(R.id.cv_foodpanel);
         numberPicker = findViewById(R.id.numberPicker);
-        selectedValueTextView = findViewById(R.id.selectedValueTextView);
         lv_foodList = findViewById(R.id.lv_foodList);
         lv_latestList = findViewById(R.id.lv_latestList);
 
@@ -71,14 +65,16 @@ public class Calories extends AppCompatActivity {
             // Data is coming from the UserModel object
             gender = user.getGender();
             age = String.valueOf(user.getAge());
+            weight = String.valueOf(user.getWeight()/10);
             selectedGoals = user.getGoal();
         } else {
             // Data is coming from getIntent() method
             gender = getIntent().getStringExtra("gender");
             age = getIntent().getStringExtra("age");
+            weight = getIntent().getStringExtra("weight");
             selectedGoals = getIntent().getStringExtra("selectedGoals");
         }
-
+        tv_weight.setText(weight + "kg");
 
         numberPicker.setMinValue(0);
         numberPicker.setMaxValue(1000);
@@ -320,6 +316,21 @@ public class Calories extends AppCompatActivity {
 
                 // Update the tv_weight TextView with the selected value
                 tv_weight.setText(formattedValue + " kg");
+
+                // Use userEmail (previously extracted from UserModel) for updating the weight
+                String userEmail = user.getEmail(); // Retrieve the user's email
+
+                DataBaseHelper dbHelper = new DataBaseHelper(Calories.this);
+                float newWeight = (selectedValue * 10); // Convert back to integer representation of weight
+                boolean updateSuccess = dbHelper.updateUserWeight(userEmail, newWeight);
+
+                if (updateSuccess) {
+                    // Handle success, e.g., show a toast message
+                    Toast.makeText(Calories.this, "Weight updated successfully", Toast.LENGTH_SHORT).show();
+                } else {
+                    // Handle failure, e.g., show an error message
+                    Toast.makeText(Calories.this, "Failed to update weight", Toast.LENGTH_SHORT).show();
+                }
 
                 // Hide the weight panel or perform any other necessary actions
                 cv_weightpanel.setVisibility(View.GONE);
