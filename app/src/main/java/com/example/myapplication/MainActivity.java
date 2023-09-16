@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button btn_continue, btn_newaccount;
+    Button btn_sign_in, btn_new_account;
     EditText et_email;
     CheckBox checkBox;
     SharedPreferences preferences;
@@ -22,8 +22,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        btn_continue = findViewById(R.id.btn_continue);
-        btn_newaccount = findViewById(R.id.btn_newaccount);
+        btn_sign_in = findViewById(R.id.btn_sign_in);
+        btn_new_account = findViewById(R.id.btn_new_account);
         et_email = findViewById(R.id.et_email);
         checkBox = findViewById(R.id.checkBox);
 
@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // Button listeners
-        btn_continue.setOnClickListener(view -> {
+        btn_sign_in.setOnClickListener(view -> {
             // Get the entered email from the EditText
             String enteredEmail = et_email.getText().toString().trim();
 
@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        btn_newaccount.setOnClickListener(view -> {
+        btn_new_account.setOnClickListener(view -> {
             Intent intent = new Intent(MainActivity.this, Email.class); // Move from MainActivity class to Name class
             startActivity(intent);
         });

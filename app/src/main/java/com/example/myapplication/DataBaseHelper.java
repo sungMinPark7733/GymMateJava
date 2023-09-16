@@ -30,7 +30,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                     COLUMN_USER_GENDER + " TEXT, " +
                     COLUMN_USER_AGE + " INT, " +
                     COLUMN_USER_HEIGHT + " INT, " +
-                    COLUMN_USER_WEIGHT + " INT, " +
+                    COLUMN_USER_WEIGHT + " REAL, " +
                     COLUMN_USER_GOAL + " TEXT, " +
                     COLUMN_USER_DAYS + " TEXT)";
     public DataBaseHelper(@Nullable Context context) {
@@ -68,25 +68,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return insert != -1;
     }
 
-//    public boolean doesEmailExist(String email) {
-//        SQLiteDatabase db = this.getReadableDatabase();
-//
-//        // Define the query to check if the email exists
-//        String query = "SELECT " + COLUMN_USER_EMAIL + " FROM " + USER_TABLE +
-//                " WHERE " + COLUMN_USER_EMAIL + " = ?";
-//
-//        // Perform the query with the email as a parameter
-//        Cursor cursor = db.rawQuery(query, new String[]{email});
-//
-//        // Check if a row with the email exists
-//        boolean emailExists = cursor.moveToFirst();
-//
-//        // Close the cursor and database
-//        cursor.close();
-//        db.close();
-//
-//        return emailExists;
-//    }
     public UserModel getUserByEmail(String email) {
         SQLiteDatabase db = this.getReadableDatabase();
         UserModel user = null;
@@ -137,4 +118,19 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         cursor.close();
         return user; // Return the UserModel or null if no matching user is found
     }
+
+    public boolean updateUserWeight(String email, float newWeight) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_USER_WEIGHT, newWeight);
+
+        // Define the WHERE clause to update the user with the matching email
+        String whereClause = COLUMN_USER_EMAIL + " = ?";
+        String[] whereArgs = { email };
+
+        int rowsUpdated = db.update(USER_TABLE, values, whereClause, whereArgs);
+        return rowsUpdated > 0;
+    }
+
+
 }

@@ -88,7 +88,7 @@ public class Confirmation extends AppCompatActivity {
                         gender,
                         Integer.parseInt(age),
                         Integer.parseInt(height),
-                        Integer.parseInt(weight),
+                        Float.parseFloat(weight),
                         selectedGoals,
                         booleandays);
                 Toast.makeText(Confirmation.this, userModel.toString(), Toast.LENGTH_LONG).show();
@@ -107,6 +107,7 @@ public class Confirmation extends AppCompatActivity {
             Intent intent = new Intent(Confirmation.this, Calories.class);
             intent.putExtra("age", age); // Pass the age to the next intent
             intent.putExtra("gender", gender); // Pass the gender to the next intent
+            intent.putExtra("weight", weight);  // Pass the weight to the next intent
             intent.putExtra("selectedGoals", selectedGoals); // Pass the goal to the next intent
             startActivity(intent);
 
