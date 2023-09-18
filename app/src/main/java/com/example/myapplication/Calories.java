@@ -22,7 +22,7 @@ import java.util.List;
 
 public class Calories extends AppCompatActivity {
 
-    private Button btn_addFood, btn_addWeight, btn_cancel1, btn_cancel2, btn_add1, btn_clear, btn_delete, btn_confirm1;
+    private Button btn_addFood, btn_addWeight, btn_weight_update_cancel, btn_food_add_cancel, btn_food_add, btn_clear, btn_delete, btn_weight_update;
     private TextView tv_calDisplay, tv_protein, tv_carbs, tv_fat, tv_weight;
     private PieChart piechart;
     private CardView cv_weightpanel, cv_foodpanel;
@@ -39,12 +39,12 @@ public class Calories extends AppCompatActivity {
         tv_calDisplay = findViewById(R.id.tv_calDisplay);
         btn_addFood = findViewById(R.id.btn_addFood);
         btn_addWeight = findViewById(R.id.btn_addWeight);
-        btn_cancel1 = findViewById(R.id.btn_cancel1);
-        btn_cancel2 = findViewById(R.id.btn_cancel2);
-        btn_add1 = findViewById(R.id.btn_add1);
+        btn_weight_update_cancel = findViewById(R.id.btn_weight_update_cancel);
+        btn_food_add_cancel = findViewById(R.id.btn_food_add_cancel);
+        btn_food_add = findViewById(R.id.btn_food_add);
         btn_clear = findViewById(R.id.btn_clear);
         btn_delete = findViewById(R.id.btn_delete);
-        btn_confirm1 = findViewById(R.id.btn_confirm1);
+        btn_weight_update = findViewById(R.id.btn_weight_update);
         piechart = findViewById(R.id.piechart);
         tv_protein = findViewById(R.id.tv_protein);
         tv_carbs = findViewById(R.id.tv_carbs);
@@ -214,7 +214,7 @@ public class Calories extends AppCompatActivity {
             }
         });
 
-        btn_cancel1.setOnClickListener(new View.OnClickListener() {
+        btn_weight_update_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Toggle the visibility of the weightpanel
@@ -224,7 +224,7 @@ public class Calories extends AppCompatActivity {
             }
         });
 
-        btn_cancel2.setOnClickListener(new View.OnClickListener() {
+        btn_food_add_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Toggle the visibility of the foodpanel
@@ -233,7 +233,7 @@ public class Calories extends AppCompatActivity {
                 }
             }
         });
-        btn_add1.setOnClickListener(new View.OnClickListener() {
+        btn_food_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Loop through the items in lv_foodList
@@ -298,7 +298,7 @@ public class Calories extends AppCompatActivity {
                 ((ArrayAdapter<FoodModel>) lv_latestList.getAdapter()).notifyDataSetChanged();
             }
         });
-        btn_confirm1.setOnClickListener(new View.OnClickListener() {
+        btn_weight_update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Get the selected value from the NumberPicker
