@@ -88,7 +88,7 @@ public class Confirmation extends AppCompatActivity {
                         gender,
                         Integer.parseInt(age),
                         Integer.parseInt(height),
-                        Float.parseFloat(weight),
+                        Integer.parseInt(weight),
                         selectedGoals,
                         booleandays);
                 Toast.makeText(Confirmation.this, userModel.toString(), Toast.LENGTH_LONG).show();

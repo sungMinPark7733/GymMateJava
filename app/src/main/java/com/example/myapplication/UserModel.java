@@ -11,7 +11,7 @@ public class UserModel implements Serializable {
     private String gender;
     private int age;
     private int height;
-    private float weight;
+    private int weight;
     private String goal;
     private String days;
 
@@ -32,7 +32,7 @@ public class UserModel implements Serializable {
     }
 
     // Constructor
-    public UserModel(int id, String email, String name, String gender, int age, int height, float weight, String goal, String days) {
+    public UserModel(int id, String email, String name, String gender, int age, int height, int weight, String goal, String days) {
         this.id = id;
         this.email = email;
         this.name = name;
@@ -101,7 +101,7 @@ public class UserModel implements Serializable {
         this.height = height;
     }
 
-    public float getWeight() {
+    public int getWeight() {
         return weight;
     }
 

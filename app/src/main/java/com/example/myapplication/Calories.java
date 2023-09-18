@@ -65,7 +65,7 @@ public class Calories extends AppCompatActivity {
             // Data is coming from the UserModel object
             gender = user.getGender();
             age = String.valueOf(user.getAge());
-            weight = String.valueOf(user.getWeight()/10);
+            weight = String.valueOf(user.getWeight());
             selectedGoals = user.getGoal();
         } else {
             // Data is coming from getIntent() method
@@ -77,19 +77,7 @@ public class Calories extends AppCompatActivity {
         tv_weight.setText(weight + "kg");
 
         numberPicker.setMinValue(0);
-        numberPicker.setMaxValue(1000);
-
-        // Set up a custom formatter to display float values
-        final NumberPicker.Formatter formatter = new NumberPicker.Formatter() {
-            @Override
-            public String format(int value) {
-                // Convert the integer value to a float and format it as needed
-                float floatValue = value / 10.0f;
-                return String.format("%.1f", floatValue);
-            }
-        };
-
-        numberPicker.setFormatter(formatter);
+        numberPicker.setMaxValue(100);
 
         if (gender != null && age != null && selectedGoals != null) {
             int intAge = Integer.parseInt(age);
@@ -205,7 +193,7 @@ public class Calories extends AppCompatActivity {
                     cv_foodpanel.setVisibility(View.GONE);
                 } else {
                     cv_foodpanel.setVisibility(View.VISIBLE);
-                    FoodDatabaseHelper dataBaseHelper = new FoodDatabaseHelper(Calories.this);
+                    DataBaseHelper dataBaseHelper = new DataBaseHelper(Calories.this);
                     List<FoodModel> everyfood = dataBaseHelper.getEveryfood();
 
                     ArrayAdapter userArrayAdapter = new ArrayAdapter<FoodModel>(Calories.this, android.R.layout.simple_list_item_multiple_choice, everyfood);
@@ -292,6 +280,11 @@ public class Calories extends AppCompatActivity {
 
                 // Notify the adapter that the data has changed
                 ((ArrayAdapter<FoodModel>) lv_latestList.getAdapter()).notifyDataSetChanged();
+
+                // Clear the checked state of items in the ListView
+                for (int i = 0; i < itemCount; i++) {
+                    lv_latestList.setItemChecked(i, false);
+                }
             }
         });
 
@@ -309,20 +302,16 @@ public class Calories extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Get the selected value from the NumberPicker
-                float selectedValue = numberPicker.getValue() / 10.0f;
-
-                // Format the selected value as needed
-                String formattedValue = String.format("%.1f", selectedValue);
+                int selectedValue = numberPicker.getValue();
 
                 // Update the tv_weight TextView with the selected value
-                tv_weight.setText(formattedValue + " kg");
+                tv_weight.setText(selectedValue + " kg");
 
                 // Use userEmail (previously extracted from UserModel) for updating the weight
                 String userEmail = user.getEmail(); // Retrieve the user's email
 
                 DataBaseHelper dbHelper = new DataBaseHelper(Calories.this);
-                float newWeight = (selectedValue * 10); // Convert back to integer representation of weight
-                boolean updateSuccess = dbHelper.updateUserWeight(userEmail, newWeight);
+                boolean updateSuccess = dbHelper.updateUserWeight(userEmail, selectedValue);
 
                 if (updateSuccess) {
                     // Handle success, e.g., show a toast message

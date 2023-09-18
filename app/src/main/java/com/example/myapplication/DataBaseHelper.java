@@ -8,8 +8,11 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
-public class DataBaseHelper extends SQLiteOpenHelper {
+import java.util.ArrayList;
+import java.util.List;
 
+public class DataBaseHelper extends SQLiteOpenHelper {
+//  User table
     public static final String USER_TABLE = "USER_TABLE";
     public static final String COLUMN_ID = "ID";
     public static final String COLUMN_USER_EMAIL = "USER_EMAIL";
@@ -20,9 +23,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_USER_WEIGHT = "USER_WEIGHT";
     public static final String COLUMN_USER_GOAL = "USER_GOAL";
     public static final String COLUMN_USER_DAYS = "USER_DAYS";
-
-    private static final String CREATE_TABLE_QUERY =
-            "CREATE TABLE " +
+    private static final String CREATE_USER_TABLE_QUERY =
+            "CREATE TABLE IF NOT EXISTS " +
                     USER_TABLE + " (" +
                     COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     COLUMN_USER_EMAIL + " TEXT UNIQUE, " +
@@ -33,13 +35,34 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                     COLUMN_USER_WEIGHT + " REAL, " +
                     COLUMN_USER_GOAL + " TEXT, " +
                     COLUMN_USER_DAYS + " TEXT)";
+//  Food table
+    public static final String FOOD_TABLE = "FOOD_TABLE";
+    public static final String COLUMN_FOOD_ID = "ID";
+    public static final String COLUMN_FOOD_NAME = "FOOD_NAME";
+    public static final String COLUMN_FOOD_CALORIES = "CALORIES";
+    public static final String COLUMN_FOOD_PORTION = "PORTION";
+    public static final String COLUMN_FOOD_PROTEIN = "PROTEIN";
+    public static final String COLUMN_FOOD_CARBS = "CARBS";
+    public static final String COLUMN_FOOD_FAT = "FAT";
+    private static final String CREATE_FOOD_TABLE_QUERY =
+            "CREATE TABLE IF NOT EXISTS " +
+                    FOOD_TABLE + " (" +
+                    COLUMN_FOOD_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    COLUMN_FOOD_NAME + " TEXT, " +
+                    COLUMN_FOOD_CALORIES + " INT, " +
+                    COLUMN_FOOD_PORTION + " TEXT, " +
+                    COLUMN_FOOD_PROTEIN + " REAL, " +
+                    COLUMN_FOOD_CARBS + " REAL, " +
+                    COLUMN_FOOD_FAT + " REAL)";
+
     public DataBaseHelper(@Nullable Context context) {
-        super(context, "user.db", null, 1);
+        super(context, "gymmate.db", null, 1);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(CREATE_TABLE_QUERY);
+        db.execSQL(CREATE_USER_TABLE_QUERY);
+        db.execSQL(CREATE_FOOD_TABLE_QUERY);
     }
 
 
@@ -119,7 +142,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return user; // Return the UserModel or null if no matching user is found
     }
 
-    public boolean updateUserWeight(String email, float newWeight) {
+    public boolean updateUserWeight(String email, int newWeight) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_USER_WEIGHT, newWeight);
@@ -132,5 +155,37 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return rowsUpdated > 0;
     }
 
+    public List<FoodModel> getEveryfood() {
+        List<FoodModel> returnList = new ArrayList<>();
 
+        String queryString = "SELECT * FROM " + FOOD_TABLE;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(queryString, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                int foodID = cursor.getInt(0);
+                String foodName = cursor.getString(1);
+                int foodCalories = cursor.getInt(2);
+                String foodPortion = cursor.getString(3);
+                float foodProtein = cursor.getFloat(4);
+                float foodCarbs = cursor.getFloat(5);
+                float foodFat = cursor.getFloat(6);
+
+                FoodModel newFoodModel = new FoodModel(foodID, foodName, foodCalories, foodPortion, foodProtein, foodCarbs, foodFat);
+                returnList.add(newFoodModel);
+
+            }
+
+            while (cursor.moveToNext());
+        } else {
+            // Do nothing
+        }
+
+        cursor.close();
+        db.close();
+        return returnList;
+    }
 }
