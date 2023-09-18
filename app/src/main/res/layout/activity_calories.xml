@@ -33,8 +33,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="8dp"
-                android:layout_weight="1"
-                 />
+                android:layout_weight="1" />
 
             <!--Linear layout for nutrition names -->
             <LinearLayout
@@ -247,8 +246,43 @@
             <ListView
                 android:id="@+id/lv_latestList"
                 android:layout_width="wrap_content"
-                android:layout_height="280sp"
+                android:layout_height="250sp"
                 android:choiceMode="multipleChoice" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_user_calories"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Calories: 0 cal"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/tv_user_protein"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" Protein: 0 g"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/tv_user_carbs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" Carbs: 0 g"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/tv_user_fat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" Fat: 0 g"
+                    android:textSize="18sp" />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -268,12 +302,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Delete"
-                    android:textSize="18sp" />
-                <Button
-                    android:id="@+id/btn_save"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Save"
                     android:textSize="18sp" />
             </LinearLayout>
         </LinearLayout>
@@ -346,8 +374,8 @@
         android:layout_below="@+id/cardViewGraph"
         android:backgroundTint="#ff6750a4"
         android:elevation="10dp"
-        app:cardCornerRadius="10dp"
         android:visibility="gone"
+        app:cardCornerRadius="10dp"
         app:layout_constraintBottom_toTopOf="@id/buttonBar2">
 
         <LinearLayout
@@ -418,8 +446,8 @@
         android:layout_height="500dp"
         android:backgroundTint="#ff6750a4"
         android:elevation="10dp"
-        app:cardCornerRadius="10dp"
         android:visibility="gone"
+        app:cardCornerRadius="10dp"
         app:layout_constraintBottom_toTopOf="@id/buttonBar2">
 
         <ListView

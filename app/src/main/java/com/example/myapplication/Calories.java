@@ -22,13 +22,19 @@ import java.util.List;
 
 public class Calories extends AppCompatActivity {
 
-    private Button btn_addFood, btn_addWeight, btn_weight_update_cancel, btn_food_add_cancel, btn_food_add, btn_clear, btn_delete, btn_weight_update, btn_save;
-    private TextView tv_calDisplay, tv_protein, tv_carbs, tv_fat, tv_weight;
+    private Button btn_addFood, btn_addWeight, btn_weight_update_cancel, btn_food_add_cancel, btn_food_add, btn_clear, btn_delete, btn_weight_update;
+    private TextView tv_calDisplay, tv_protein, tv_carbs, tv_fat, tv_weight, tv_user_calories, tv_user_protein, tv_user_carbs, tv_user_fat;
     private PieChart piechart;
     private CardView cv_weightpanel, cv_foodpanel;
     private NumberPicker numberPicker;
     private ListView lv_foodList, lv_latestList;
     private String gender, age, weight, selectedGoals;
+    private int totalCalories = 0;
+    private float totalProtein = 0.0f;
+    private float totalCarbs = 0.0f;
+    private float totalFat = 0.0f;
+
+    final ArrayList<FoodModel> selectedFoodList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,20 +51,20 @@ public class Calories extends AppCompatActivity {
         btn_clear = findViewById(R.id.btn_clear);
         btn_delete = findViewById(R.id.btn_delete);
         btn_weight_update = findViewById(R.id.btn_weight_update);
-        btn_save = findViewById(R.id.btn_save);
         piechart = findViewById(R.id.piechart);
         tv_protein = findViewById(R.id.tv_protein);
         tv_carbs = findViewById(R.id.tv_carbs);
         tv_fat = findViewById(R.id.tv_fat);
         tv_weight = findViewById(R.id.tv_weight);
+        tv_user_calories = findViewById(R.id.tv_user_calories);
+        tv_user_protein = findViewById(R.id.tv_user_protein);
+        tv_user_carbs = findViewById(R.id.tv_user_carbs);
+        tv_user_fat = findViewById(R.id.tv_user_fat);
         cv_weightpanel = findViewById(R.id.cv_weightpanel);
         cv_foodpanel = findViewById(R.id.cv_foodpanel);
         numberPicker = findViewById(R.id.numberPicker);
         lv_foodList = findViewById(R.id.lv_foodList);
         lv_latestList = findViewById(R.id.lv_latestList);
-
-
-        final ArrayList<FoodModel> selectedFoodList = new ArrayList<>();
 
         UserModel user = (UserModel) getIntent().getSerializableExtra("user");
 
@@ -223,11 +229,9 @@ public class Calories extends AppCompatActivity {
             }
         });
         btn_food_add.setOnClickListener(v -> {
-            // Loop through the items in lv_foodList
             int itemCount = lv_foodList.getCount();
             for (int i = 0; i < itemCount; i++) {
                 if (lv_foodList.isItemChecked(i)) {
-                    // If the item is checked, add it to the selectedFoodList
                     selectedFoodList.add((FoodModel) lv_foodList.getItemAtPosition(i));
                 }
             }
@@ -242,42 +246,41 @@ public class Calories extends AppCompatActivity {
             // Notify the adapter that the data has changed
             latestListAdapter.notifyDataSetChanged();
 
-            // Toggle the visibility of the foodpanel
+            // Toggle the visibility of the food panel
             cv_foodpanel.setVisibility(View.GONE);
+
+            // Calculate and update nutrition values
+            calculateAndUpdateNutrition();
         });
         btn_delete.setOnClickListener(v -> {
-
-            // Create a list to store the items to be deleted
             List<FoodModel> itemsToDelete = new ArrayList<>();
 
-            // Loop through the items in lv_latestList
             int itemCount = lv_latestList.getCount();
             for (int i = 0; i < itemCount; i++) {
                 if (lv_latestList.isItemChecked(i)) {
-                    // If the item is checked, add it to the itemsToDelete
                     itemsToDelete.add((FoodModel) lv_latestList.getItemAtPosition(i));
                 }
             }
 
-            // Remove the selected items from selectedFoodList
             selectedFoodList.removeAll(itemsToDelete);
 
-            // Notify the adapter that the data has changed
             ((ArrayAdapter<FoodModel>) lv_latestList.getAdapter()).notifyDataSetChanged();
 
-            // Clear the checked state of items in the ListView
             for (int i = 0; i < itemCount; i++) {
                 lv_latestList.setItemChecked(i, false);
             }
+
+            // Calculate and update nutrition values
+            calculateAndUpdateNutrition();
         });
-        btn_save.setOnClickListener(v -> {
-        });
+
         btn_clear.setOnClickListener(v -> {
-            // Clear all items from selectedFoodList
             selectedFoodList.clear();
 
-            // Notify the adapter that the data has changed
             ((ArrayAdapter<FoodModel>) lv_latestList.getAdapter()).notifyDataSetChanged();
+
+            // Clear nutrition values
+            clearNutritionValues();
         });
         btn_weight_update.setOnClickListener(v -> {
             // Get the selected value from the NumberPicker
@@ -312,4 +315,37 @@ public class Calories extends AppCompatActivity {
 
         return result;
     }
+    private void calculateAndUpdateNutrition() {
+        totalCalories = 0;
+        totalProtein = 0.0f;
+        totalCarbs = 0.0f;
+        totalFat = 0.0f;
+
+        for (FoodModel food : selectedFoodList) {
+            totalCalories += food.getCalories();
+            totalProtein += food.getProtein();
+            totalCarbs += food.getCarbs();
+            totalFat += food.getFat();
+        }
+
+        // Update the TextViews
+        tv_user_calories.setText("Calories: " + totalCalories + " cal");
+        tv_user_protein.setText(" Protein: " + totalProtein + " g");
+        tv_user_carbs.setText(" Carbs: " + totalCarbs + " g");
+        tv_user_fat.setText(" Fat: " + totalFat + " g");
+    }
+
+    private void clearNutritionValues() {
+        totalCalories = 0;
+        totalProtein = 0.0f;
+        totalCarbs = 0.0f;
+        totalFat = 0.0f;
+
+        // Update the TextViews with zero values
+        tv_user_calories.setText("Calories: 0 cal");
+        tv_user_protein.setText(" Protein: 0 g");
+        tv_user_carbs.setText(" Carbs: 0 g");
+        tv_user_fat.setText(" Fat: 0 g");
+    }
+
 }
