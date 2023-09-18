@@ -186,149 +186,122 @@ public class Calories extends AppCompatActivity {
 
 
         // Add click listeners to your buttons
-        btn_addFood.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Toggle the visibility of the foodpanel
-                if (cv_foodpanel.getVisibility() == View.VISIBLE) {
-                    cv_foodpanel.setVisibility(View.GONE);
-                } else {
-                    cv_foodpanel.setVisibility(View.VISIBLE);
-                    DataBaseHelper dataBaseHelper = new DataBaseHelper(Calories.this);
-                    List<FoodModel> everyfood = dataBaseHelper.getEveryfood();
+        btn_addFood.setOnClickListener(v -> {
+            // Toggle the visibility of the foodpanel
+            if (cv_foodpanel.getVisibility() == View.VISIBLE) {
+                cv_foodpanel.setVisibility(View.GONE);
+            } else {
+                cv_foodpanel.setVisibility(View.VISIBLE);
+                DataBaseHelper dataBaseHelper = new DataBaseHelper(Calories.this);
+                List<FoodModel> everyfood = dataBaseHelper.getEveryfood();
 
-                    ArrayAdapter userArrayAdapter = new ArrayAdapter<FoodModel>(Calories.this, android.R.layout.simple_list_item_multiple_choice, everyfood);
-                    lv_foodList.setAdapter(userArrayAdapter);
-                }
+                ArrayAdapter userArrayAdapter = new ArrayAdapter<FoodModel>(Calories.this, android.R.layout.simple_list_item_multiple_choice, everyfood);
+                lv_foodList.setAdapter(userArrayAdapter);
             }
         });
 
-        btn_addWeight.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Toggle the visibility of the weightpanel
-                if (cv_weightpanel.getVisibility() == View.VISIBLE) {
-                    cv_weightpanel.setVisibility(View.GONE);
-                } else {
-                    cv_weightpanel.setVisibility(View.VISIBLE);
-                }
+        btn_addWeight.setOnClickListener(v -> {
+            // Toggle the visibility of the weightpanel
+            if (cv_weightpanel.getVisibility() == View.VISIBLE) {
+                cv_weightpanel.setVisibility(View.GONE);
+            } else {
+                cv_weightpanel.setVisibility(View.VISIBLE);
             }
         });
 
-        btn_weight_update_cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Toggle the visibility of the weightpanel
-                if (cv_weightpanel.getVisibility() == View.VISIBLE) {
-                    cv_weightpanel.setVisibility(View.GONE);
-                }
+        btn_weight_update_cancel.setOnClickListener(v -> {
+            // Toggle the visibility of the weightpanel
+            if (cv_weightpanel.getVisibility() == View.VISIBLE) {
+                cv_weightpanel.setVisibility(View.GONE);
             }
         });
 
-        btn_food_add_cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Toggle the visibility of the foodpanel
-                if (cv_foodpanel.getVisibility() == View.VISIBLE) {
-                    cv_foodpanel.setVisibility(View.GONE);
-                }
-            }
-        });
-        btn_food_add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Loop through the items in lv_foodList
-                int itemCount = lv_foodList.getCount();
-                for (int i = 0; i < itemCount; i++) {
-                    if (lv_foodList.isItemChecked(i)) {
-                        // If the item is checked, add it to the selectedFoodList
-                        selectedFoodList.add((FoodModel) lv_foodList.getItemAtPosition(i));
-                    }
-                }
-
-                // Create an adapter for lv_latestList with the selectedFoodList
-                ArrayAdapter<FoodModel> latestListAdapter = new ArrayAdapter<>(Calories.this,
-                        android.R.layout.simple_list_item_multiple_choice, selectedFoodList);
-
-                // Set the adapter for lv_latestList
-                lv_latestList.setAdapter(latestListAdapter);
-
-                // Notify the adapter that the data has changed
-                latestListAdapter.notifyDataSetChanged();
-
-                // Toggle the visibility of the foodpanel
+        btn_food_add_cancel.setOnClickListener(v -> {
+            // Toggle the visibility of the foodpanel
+            if (cv_foodpanel.getVisibility() == View.VISIBLE) {
                 cv_foodpanel.setVisibility(View.GONE);
             }
         });
-        btn_delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                // Create a list to store the items to be deleted
-                List<FoodModel> itemsToDelete = new ArrayList<>();
-
-                // Loop through the items in lv_latestList
-                int itemCount = lv_latestList.getCount();
-                for (int i = 0; i < itemCount; i++) {
-                    if (lv_latestList.isItemChecked(i)) {
-                        // If the item is checked, add it to the itemsToDelete
-                        itemsToDelete.add((FoodModel) lv_latestList.getItemAtPosition(i));
-                    }
-                }
-
-                // Remove the selected items from selectedFoodList
-                selectedFoodList.removeAll(itemsToDelete);
-
-                // Notify the adapter that the data has changed
-                ((ArrayAdapter<FoodModel>) lv_latestList.getAdapter()).notifyDataSetChanged();
-
-                // Clear the checked state of items in the ListView
-                for (int i = 0; i < itemCount; i++) {
-                    lv_latestList.setItemChecked(i, false);
+        btn_food_add.setOnClickListener(v -> {
+            // Loop through the items in lv_foodList
+            int itemCount = lv_foodList.getCount();
+            for (int i = 0; i < itemCount; i++) {
+                if (lv_foodList.isItemChecked(i)) {
+                    // If the item is checked, add it to the selectedFoodList
+                    selectedFoodList.add((FoodModel) lv_foodList.getItemAtPosition(i));
                 }
             }
+
+            // Create an adapter for lv_latestList with the selectedFoodList
+            ArrayAdapter<FoodModel> latestListAdapter = new ArrayAdapter<>(Calories.this,
+                    android.R.layout.simple_list_item_multiple_choice, selectedFoodList);
+
+            // Set the adapter for lv_latestList
+            lv_latestList.setAdapter(latestListAdapter);
+
+            // Notify the adapter that the data has changed
+            latestListAdapter.notifyDataSetChanged();
+
+            // Toggle the visibility of the foodpanel
+            cv_foodpanel.setVisibility(View.GONE);
         });
-        btn_save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            }
-        });
-        btn_clear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Clear all items from selectedFoodList
-                selectedFoodList.clear();
+        btn_delete.setOnClickListener(v -> {
 
-                // Notify the adapter that the data has changed
-                ((ArrayAdapter<FoodModel>) lv_latestList.getAdapter()).notifyDataSetChanged();
-            }
-        });
-        btn_weight_update.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Get the selected value from the NumberPicker
-                int selectedValue = numberPicker.getValue();
+            // Create a list to store the items to be deleted
+            List<FoodModel> itemsToDelete = new ArrayList<>();
 
-                // Update the tv_weight TextView with the selected value
-                tv_weight.setText(selectedValue + " kg");
-
-                // Use userEmail (previously extracted from UserModel) for updating the weight
-                String userEmail = user.getEmail(); // Retrieve the user's email
-
-                DataBaseHelper dbHelper = new DataBaseHelper(Calories.this);
-                boolean updateSuccess = dbHelper.updateUserWeight(userEmail, selectedValue);
-
-                if (updateSuccess) {
-                    // Handle success, e.g., show a toast message
-                    Toast.makeText(Calories.this, "Weight updated successfully", Toast.LENGTH_SHORT).show();
-                } else {
-                    // Handle failure, e.g., show an error message
-                    Toast.makeText(Calories.this, "Failed to update weight", Toast.LENGTH_SHORT).show();
+            // Loop through the items in lv_latestList
+            int itemCount = lv_latestList.getCount();
+            for (int i = 0; i < itemCount; i++) {
+                if (lv_latestList.isItemChecked(i)) {
+                    // If the item is checked, add it to the itemsToDelete
+                    itemsToDelete.add((FoodModel) lv_latestList.getItemAtPosition(i));
                 }
-
-                // Hide the weight panel or perform any other necessary actions
-                cv_weightpanel.setVisibility(View.GONE);
             }
+
+            // Remove the selected items from selectedFoodList
+            selectedFoodList.removeAll(itemsToDelete);
+
+            // Notify the adapter that the data has changed
+            ((ArrayAdapter<FoodModel>) lv_latestList.getAdapter()).notifyDataSetChanged();
+
+            // Clear the checked state of items in the ListView
+            for (int i = 0; i < itemCount; i++) {
+                lv_latestList.setItemChecked(i, false);
+            }
+        });
+        btn_save.setOnClickListener(v -> {
+        });
+        btn_clear.setOnClickListener(v -> {
+            // Clear all items from selectedFoodList
+            selectedFoodList.clear();
+
+            // Notify the adapter that the data has changed
+            ((ArrayAdapter<FoodModel>) lv_latestList.getAdapter()).notifyDataSetChanged();
+        });
+        btn_weight_update.setOnClickListener(v -> {
+            // Get the selected value from the NumberPicker
+            int selectedValue = numberPicker.getValue();
+
+            // Update the tv_weight TextView with the selected value
+            tv_weight.setText(selectedValue + " kg");
+
+            // Use userEmail (previously extracted from UserModel) for updating the weight
+            String userEmail = user.getEmail(); // Retrieve the user's email
+
+            DataBaseHelper dbHelper = new DataBaseHelper(Calories.this);
+            boolean updateSuccess = dbHelper.updateUserWeight(userEmail, selectedValue);
+
+            if (updateSuccess) {
+                // Handle success, e.g., show a toast message
+                Toast.makeText(Calories.this, "Weight updated successfully", Toast.LENGTH_SHORT).show();
+            } else {
+                // Handle failure, e.g., show an error message
+                Toast.makeText(Calories.this, "Failed to update weight", Toast.LENGTH_SHORT).show();
+            }
+
+            // Hide the weight panel or perform any other necessary actions
+            cv_weightpanel.setVisibility(View.GONE);
         });
 
     }
