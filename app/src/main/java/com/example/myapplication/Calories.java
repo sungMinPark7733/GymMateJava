@@ -22,7 +22,7 @@ import java.util.List;
 
 public class Calories extends AppCompatActivity {
 
-    private Button btn_addFood, btn_addWeight, btn_weight_update_cancel, btn_food_add_cancel, btn_food_add, btn_clear, btn_delete, btn_weight_update;
+    private Button btn_addFood, btn_addWeight, btn_weight_update_cancel, btn_food_add_cancel, btn_food_add, btn_clear, btn_delete, btn_weight_update, btn_save;
     private TextView tv_calDisplay, tv_protein, tv_carbs, tv_fat, tv_weight;
     private PieChart piechart;
     private CardView cv_weightpanel, cv_foodpanel;
@@ -45,6 +45,7 @@ public class Calories extends AppCompatActivity {
         btn_clear = findViewById(R.id.btn_clear);
         btn_delete = findViewById(R.id.btn_delete);
         btn_weight_update = findViewById(R.id.btn_weight_update);
+        btn_save = findViewById(R.id.btn_save);
         piechart = findViewById(R.id.piechart);
         tv_protein = findViewById(R.id.tv_protein);
         tv_carbs = findViewById(R.id.tv_carbs);
@@ -287,7 +288,11 @@ public class Calories extends AppCompatActivity {
                 }
             }
         });
-
+        btn_save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
         btn_clear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
