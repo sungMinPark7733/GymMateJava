@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DataBaseHelper extends SQLiteOpenHelper {
-//  User table
+    //  User table
     public static final String USER_TABLE = "USER_TABLE";
     public static final String COLUMN_ID = "ID";
     public static final String COLUMN_USER_EMAIL = "USER_EMAIL";
@@ -35,7 +35,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                     COLUMN_USER_WEIGHT + " REAL, " +
                     COLUMN_USER_GOAL + " TEXT, " +
                     COLUMN_USER_DAYS + " TEXT)";
-//  Food table
+    //  Food table
     public static final String FOOD_TABLE = "FOOD_TABLE";
     public static final String COLUMN_FOOD_ID = "ID";
     public static final String COLUMN_FOOD_NAME = "FOOD_NAME";
@@ -54,6 +54,31 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                     COLUMN_FOOD_PROTEIN + " REAL, " +
                     COLUMN_FOOD_CARBS + " REAL, " +
                     COLUMN_FOOD_FAT + " REAL)";
+    //    Exercise table
+    public static final String EXERCISE_TABLE = "EXERCISE_TABLE";
+    public static final String COLUMN_EXERCISE_ID = "ID";
+    public static final String COLUMN_EXERCISE_EMAIL = "USER_EMAIL";
+    public static final String COLUMN_EXERCISE_DAY = "EXERCISE_DAY";
+    public static final String COLUMN_EXERCISE_MUSCLE = "EXERCISE_MUSCLE";
+    public static final String COLUMN_EXERCISE_NAME = "EXERCISE_NAME";
+    public static final String COLUMN_EXERCISE_LEVEL = "EXERCISE_LEVEL";
+    public static final String COLUMN_EXERCISE_PART = "EXERCISE_PART";
+    public static final String COLUMN_EXERCISE_TYPE = "EXERCISE_TYPE";
+    public static final String COLUMN_EXERCISE_MODALITY = "USER_DAYS";
+    public static final String COLUMN_EXERCISE_JOINT = "EXERCISE_JOINT";
+    private static final String CREATE_EXERCISE_TABLE_QUERY =
+            "CREATE TABLE IF NOT EXISTS " +
+                    EXERCISE_TABLE + " (" +
+                    COLUMN_EXERCISE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    COLUMN_EXERCISE_EMAIL + " TEXT, " +
+                    COLUMN_EXERCISE_DAY + " TEXT, " +
+                    COLUMN_EXERCISE_MUSCLE + " TEXT, " +
+                    COLUMN_EXERCISE_NAME + " TEXT, " +
+                    COLUMN_EXERCISE_LEVEL + " TEXT, " +
+                    COLUMN_EXERCISE_PART + " TEXT, " +
+                    COLUMN_EXERCISE_TYPE + " TEXT, " +
+                    COLUMN_EXERCISE_MODALITY + " TEXT, " +
+                    COLUMN_EXERCISE_JOINT + " TEXT)";
 
     public DataBaseHelper(@Nullable Context context) {
         super(context, "gymmate.db", null, 1);
@@ -63,6 +88,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_USER_TABLE_QUERY);
         db.execSQL(CREATE_FOOD_TABLE_QUERY);
+        db.execSQL(CREATE_EXERCISE_TABLE_QUERY);
     }
 
 
@@ -73,7 +99,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
 
     // Add user information into DB
-    public boolean addOne(UserModel userModel){
+    public boolean addOne(UserModel userModel) {
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -110,7 +136,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
         // Define the selection criteria (WHERE clause)
         String selection = COLUMN_USER_EMAIL + " = ?";
-        String[] selectionArgs = { email };
+        String[] selectionArgs = {email};
 
         // Perform the query to retrieve the user by email
         Cursor cursor = db.query(
@@ -149,7 +175,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
         // Define the WHERE clause to update the user with the matching email
         String whereClause = COLUMN_USER_EMAIL + " = ?";
-        String[] whereArgs = { email };
+        String[] whereArgs = {email};
 
         int rowsUpdated = db.update(USER_TABLE, values, whereClause, whereArgs);
         return rowsUpdated > 0;
@@ -187,5 +213,60 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return returnList;
+    }
+    public List<ExerciseModel> getExerciseListByEmail(String email) {
+        List<ExerciseModel> exerciseList = new ArrayList<>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // Define the columns you want to retrieve
+        String[] projection = {
+                COLUMN_EXERCISE_EMAIL,
+                COLUMN_EXERCISE_DAY,
+                COLUMN_EXERCISE_MUSCLE,
+                COLUMN_EXERCISE_NAME,
+                COLUMN_EXERCISE_LEVEL,
+                COLUMN_EXERCISE_PART,
+                COLUMN_EXERCISE_TYPE,
+                COLUMN_EXERCISE_MODALITY,
+                COLUMN_EXERCISE_JOINT
+        };
+
+        // Define the selection criteria (WHERE clause)
+        String selection = COLUMN_EXERCISE_EMAIL + " = ?";
+        String[] selectionArgs = {email};
+
+        // Perform the query to retrieve exercises by email
+        Cursor cursor = db.query(
+                EXERCISE_TABLE,
+                projection,
+                selection,
+                selectionArgs,
+                null,
+                null,
+                null
+        );
+
+        if (cursor.moveToFirst()) {
+            do {
+                String exerciseEmail = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_EXERCISE_EMAIL));
+                String day = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_EXERCISE_DAY));
+                String muscle = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_EXERCISE_MUSCLE));
+                String name = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_EXERCISE_NAME));
+                String level = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_EXERCISE_LEVEL));
+                String part = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_EXERCISE_PART));
+                String type = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_EXERCISE_TYPE));
+                String modality = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_EXERCISE_MODALITY));
+                String joint = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_EXERCISE_JOINT));
+
+                ExerciseModel exerciseModel = new ExerciseModel(exerciseEmail, day, muscle, name, level, part, type, modality, joint);
+                exerciseList.add(exerciseModel);
+
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+        return exerciseList;
     }
 }
