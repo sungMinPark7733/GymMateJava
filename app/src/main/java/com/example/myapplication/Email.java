@@ -48,7 +48,7 @@ public class Email extends AppCompatActivity {
 
         // button listener
         btn_previous.setOnClickListener(view -> {
-            Intent intent = new Intent(Email.this, MainActivity.class);
+            Intent intent = new Intent(Email.this, Signin.class);
             startActivity(intent);
         });
 
