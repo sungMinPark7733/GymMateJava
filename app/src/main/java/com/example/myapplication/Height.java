@@ -8,8 +8,8 @@ import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class Height extends AppCompatActivity {
-    Button btn_previous, btn_next;
-    EditText et_height;
+    private Button btn_previous, btn_next;
+    private EditText et_height;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

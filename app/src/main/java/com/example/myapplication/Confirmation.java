@@ -9,8 +9,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class Confirmation extends AppCompatActivity {
-    TextView tv_emailcheck, tv_namecheck, tv_ageCheck, tv_genderCheck, tv_heightcheck, tv_weightcheck, tv_goalcheck, tv_dayscheck;
-    Button btn_previous, btn_confirm;
+    private TextView tv_emailcheck, tv_namecheck, tv_ageCheck, tv_genderCheck, tv_heightcheck, tv_weightcheck, tv_goalcheck, tv_dayscheck;
+    private Button btn_previous, btn_confirm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

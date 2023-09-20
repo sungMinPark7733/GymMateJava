@@ -12,10 +12,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button btn_sign_in, btn_new_account;
-    EditText et_email;
-    CheckBox checkBox;
-    SharedPreferences preferences;
+    private Button btn_sign_in, btn_new_account;
+    private EditText et_email;
+    private CheckBox checkBox;
+    private SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

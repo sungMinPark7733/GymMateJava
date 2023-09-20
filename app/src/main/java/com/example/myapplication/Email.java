@@ -9,8 +9,8 @@ import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class Email extends AppCompatActivity {
-    Button btn_previous, btn_next;
-    EditText et_email;
+    private Button btn_previous, btn_next;
+    private EditText et_email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -13,10 +13,10 @@ import java.util.List;
 
 public class Days extends AppCompatActivity {
 
-    CheckBox cb_monday, cb_tuesday, cb_wednesday, cb_thursday, cb_friday, cb_saturday, cb_sunday;
-    boolean[] daysChecked;
-    List<String> checkedDaysList;
-    Button btn_previous, btn_next;
+    private CheckBox cb_monday, cb_tuesday, cb_wednesday, cb_thursday, cb_friday, cb_saturday, cb_sunday;
+    private boolean[] daysChecked;
+    private List<String> checkedDaysList;
+    private Button btn_previous, btn_next;
 
     private void updateCheckedDaysList(String day, boolean isChecked) {
         if (isChecked) {

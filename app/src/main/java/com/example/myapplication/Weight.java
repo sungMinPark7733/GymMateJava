@@ -8,14 +8,15 @@ import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class Weight extends AppCompatActivity {
-    Button btn_previous, btn_next;
-    EditText et_weight;
+    private Button btn_previous, btn_next;
+    private EditText et_weight;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weight);
 
-        btn_previous = findViewById(R.id. btn_previous);
+        btn_previous = findViewById(R.id.btn_previous);
         btn_next = findViewById(R.id.btn_next);
         et_weight = findViewById(R.id.et_weight);
 

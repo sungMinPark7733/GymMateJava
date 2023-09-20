@@ -8,8 +8,8 @@ import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class Age extends AppCompatActivity {
-    Button btn_previous, btn_next;
-    EditText et_age;
+    private Button btn_previous, btn_next;
+    private EditText et_age;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

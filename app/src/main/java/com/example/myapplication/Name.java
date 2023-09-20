@@ -9,8 +9,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class Name extends AppCompatActivity {
 
-    Button btn_previous, btn_next;
-    EditText et_name;
+    private Button btn_previous, btn_next;
+    private EditText et_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

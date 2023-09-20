@@ -8,8 +8,8 @@ import android.widget.CheckBox;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class Goal extends AppCompatActivity {
-    Button btn_previous, btn_next;
-    CheckBox cb_muscle, cb_weight;
+    private Button btn_previous, btn_next;
+    private CheckBox cb_muscle, cb_weight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
