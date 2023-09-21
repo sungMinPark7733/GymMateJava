@@ -38,7 +38,7 @@ public class Gender extends AppCompatActivity {
             String email = getIntent().getStringExtra("email");
             String name = getIntent().getStringExtra("name");
 
-            Intent intent = new Intent(Gender.this, Signin.class);
+            Intent intent = new Intent(Gender.this, SignIn.class);
 
             intent.putExtra("email", email);
             intent.putExtra("name", name);

@@ -16,7 +16,7 @@
             android:name=".Email"
             android:exported="false" />
         <activity
-            android:name=".Signin"
+            android:name=".SignIn"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
