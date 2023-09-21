@@ -20,7 +20,7 @@ public class Signin extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_signin);
 
         btn_sign_in = findViewById(R.id.btn_sign_in);
         btn_new_account = findViewById(R.id.btn_new_account);
